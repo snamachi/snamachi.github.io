@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Your Name</h1>
+    <p class="tagline">Researcher • Developer • Thinker</p>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        I’m a [your role — e.g., graduate student in computer science] interested in [your research or creative focus]. 
+        I enjoy exploring ideas at the intersection of [topics].
+      </p>
+      <p>
+        You can find my CV <a href="#">here</a> (optional link).
+      </p>
+    </section>
+
+    <section id="projects">
+      <h2>Selected Projects</h2>
+      <div class="project">
+        <h3>Project Title</h3>
+        <p>Short description of your project — what it does, why it’s interesting, and any links.</p>
+        <a href="#">View project</a>
+      </div>
+      <div class="project">
+        <h3>Another Project</h3>
+        <p>A brief summary of another project, paper, or idea you’ve worked on.</p>
+        <a href="#">Learn more</a>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>
+        Email: <a href="mailto:youremail@example.com">youremail@example.com</a><br>
+        GitHub: <a href="https://github.com/yourusername">github.com/yourusername</a><br>
+        LinkedIn: <a href="https://linkedin.com/in/yourusername">linkedin.com/in/yourusername</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Your Name</p>
+  </footer>
+
+  <script>
+    // automatically update copyright year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
