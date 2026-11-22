@@ -16,8 +16,6 @@
     .course { margin-bottom: 1.5em; }
     .course h3 { margin-bottom: 0.2em; }
     .course .meta { margin-top: 0; opacity: 0.75; font-style: italic; }
-    .course details { margin-top: 0.6em; }
-    .course summary { cursor: pointer; font-weight: 600; }
     .materials { width: 100%; border-collapse: collapse; margin-top: 0.6em; font-size: 0.95em; }
     .materials th, .materials td {
       text-align: left; vertical-align: top; padding: 0.45em 0.6em;
@@ -42,7 +40,8 @@
     <p class="tagline">Logic • Computation • Methodology</p>
     <nav>
       <a href="#about">About</a>
-      <a href="#projects">Projects</a>
+      <a href="#academic">Academic Work</a>
+      <a href="#ai-safety">AI Safety</a>
       <a href="#teaching">Teaching</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -53,18 +52,18 @@
       <h2>About Me</h2>
       <p>
         I am a 4th year Ph.D. student in Logic, Computation, & Methodology at Carnegie Mellon University’s philosophy department. 
-        My academic work takes inspiration from formal epistemology to solve problems within various domains of theoretical computer science, e.g. distributed consensus, game theory, and cryptography. Somewhat separately, I am also currently doing AI safety work as a fellow at Iliad. 
+        My academic work takes inspiration from formal epistemology to solve problems within various domains of theoretical computer science, e.g. distributed consensus, game theory, and cryptography. Somewhat separately, I am also currently doing AI safety work through the Iliad fellowship. 
       </p>
       <p>
         You can find my CV <a href="CV.pdf">here</a> and my academic research statement <a href="Statement.pdf">here</a>.
       </p>
     </section>
 
-    <section id="projects">
-      <h2>Ongoing Projects</h2>
+    <section id="academic">
+      <h2>Academic Work</h2>
 
       <div class="project-group">
-        <div class="category">Theoretical</div>
+        <div class="category">Ongoing</div>
         <div class="project">
           <h3>Topological Semantics for Common Inductive Knowledge</h3>
           <p>
@@ -95,7 +94,25 @@
       </div>
 
       <div class="project-group">
-        <div class="category">Empirical</div>
+        <div class="category">Past</div>
+        <div class="project">
+          <h3>Prediction Markets: A Mechanism for Information Aggregation</h3>
+          <p>
+            This project was my undergraduate thesis. It is largely expository, covering a wide array of topics such as 
+            probability measure aggregation, Aumann's agreement theorem, and Hanson's logarthmic market scoring rule (LMSR).
+            Original contributions include an analysis of how rationally inattentive myopic agents will interact with the LMSR 
+            as well as an interesting formal connection between automated market makers and non-equilibrium thermodynamics.
+            <a href="Thesis.pdf">Thesis</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai-safety">
+      <h2>AI Safety Work</h2>
+
+      <div class="project-group">
+        <div class="category">Ongoing</div>
         <div class="project">
           <h3>Do Sparse Autoencoders Pick Out Condensation-like Latents?</h3>
           <p>
@@ -105,17 +122,15 @@
         </div>
       </div>
 
-      <h2>Past Projects</h2>
-      <div class="project">
-        <h3>Prediction Markets: A Mechanism for Information Aggregation</h3>
-        <p>
-          This project was my undergraduate thesis. It is largely expository, covering a wide array of topics such as 
-          probability measure aggregation, Aumann's agreement theorem, and Hanson's logarthmic market scoring rule (LMSR).
-          Original contributions include an analysis of how rationally inattentive myopic agents will interact with the LMSR 
-          as well as an interesting formal connection between automated market makers and non-equilibrium thermodynamics.
-          <a href="Thesis.pdf">Thesis</a>.
-        </p>
+      <!-- Uncomment when you have a past AI safety project:
+      <div class="project-group">
+        <div class="category">Past</div>
+        <div class="project">
+          <h3>Title</h3>
+          <p>Description. <a href="file.pdf">Link</a>.</p>
+        </div>
       </div>
+      -->
     </section>
 
     <section id="teaching">
@@ -130,63 +145,60 @@
         <h3>Games, Decisions, and Rational Thinking (GDRT)</h3>
         <p class="meta">Instructor · Carnegie Mellon University</p>  <!-- TODO: term, e.g. "Summer 2026" -->
         <p>
-          I designed the syllabus and all course content for this class from scratch.
-          It is a six-week course covering rational choice and probability, normal- and extensive-form games,
+          I designed the syllabus and course material for this class from scratch.
+          It is around six-weeks worth of content covering rational choice and probability, normal- and extensive-form games,
           social choice (Arrow and Gibbard–Satterthwaite), and mechanism design (VCG and auctions).
-          Lecture notes, homework, and quizzes are below.
+          All the lecture notes, homeworks, and quizzes are below.
         </p>
-        <details open>
-          <summary>Course materials</summary>
-          <table class="materials">
-            <thead>
-              <tr><th>Week</th><th>Topic</th><th>Notes</th><th>Homework</th><th>Quiz</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Week">1</td>
-                <td data-label="Topic">Choice &amp; Probability</td>
-                <td data-label="Notes"><a href="GDRT/Week%201/Notes/123/Lec123.pdf">Lectures 1–3</a> <a href="GDRT/Week%201/Notes/4/Lec4.pdf">Lecture 4</a></td>
-                <td data-label="Homework"><a href="GDRT/Week%201/Homework/HW1.pdf">Homework 1</a></td>
-                <td data-label="Quiz"><a href="GDRT/Week%201/Quiz/Quiz1.pdf">Quiz 1</a></td>
-              </tr>
-              <tr>
-                <td data-label="Week">2</td>
-                <td data-label="Topic">Normal-Form Games &amp; Nash Equilibrium</td>
-                <td data-label="Notes"><a href="GDRT/Week%202/Notes/56/Lec56.pdf">Lectures 5–6</a> <a href="GDRT/Week%202/Notes/7/Lec7.pdf">Lecture 7</a></td>
-                <td data-label="Homework"><a href="GDRT/Week%202/Homework/HW2.pdf">Homework 2</a></td>
-                <td data-label="Quiz"><a href="GDRT/Week%202/Quiz/Quiz2.pdf">Quiz 2</a></td>
-              </tr>
-              <tr>
-                <td data-label="Week">3</td>
-                <td data-label="Topic">Extensive-Form Games &amp; Subgame Perfection</td>
-                <td data-label="Notes"><a href="GDRT/Week%203/Notes/8910/Lec8910.pdf">Lectures 8–10</a> <a href="GDRT/Week%203/Notes/11/Lec11.pdf">Lecture 11</a></td>
-                <td data-label="Homework"><a href="GDRT/Week%203/Homework/HW3.pdf">Homework 3</a></td>
-                <td data-label="Quiz"><a href="GDRT/Week%203/Quiz/Quiz3.pdf">Quiz 3</a></td>
-              </tr>
-              <tr>
-                <td data-label="Week">4</td>
-                <td data-label="Topic">Social Choice &amp; Voting</td>
-                <td data-label="Notes"><a href="GDRT/Week%204/Notes/1213/Lec1213.pdf">Lectures 12–13</a> <a href="GDRT/Week%204/Notes/1415/Lec1415.pdf">Lectures 14–15</a></td>
-                <td data-label="Homework"><a href="GDRT/Week%204/Homework/HW4.pdf">Homework 4</a></td>
-                <td data-label="Quiz"><a href="GDRT/Week%204/Quiz/Quiz4.pdf">Quiz 4</a></td>
-              </tr>
-              <tr>
-                <td data-label="Week">5</td>
-                <td data-label="Topic">Mechanism Design &amp; Auctions</td>
-                <td data-label="Notes"><a href="GDRT/Week%205/Notes/1617/Lec1617.pdf">Lectures 16–17</a> <a href="GDRT/Week%205/Notes/18/Lec18.pdf">Lecture 18</a></td>
-                <td data-label="Homework"><a href="GDRT/Week%205/Homework/HW5.pdf">Homework 5</a></td>
-                <td data-label="Quiz"><a href="GDRT/Week%205/Quiz/Quiz5.pdf">Quiz 5</a></td>
-              </tr>
-              <tr>
-                <td data-label="Week">6</td>
-                <td data-label="Topic">Final Presentations</td>
-                <td data-label="Notes">—</td>
-                <td data-label="Homework">—</td>
-                <td data-label="Quiz"><a href="GDRT/Week%206/Quiz/Quiz6.pdf">Quiz 6</a></td>
-              </tr>
-            </tbody>
-          </table>
-        </details>
+        <table class="materials">
+          <thead>
+            <tr><th>Week</th><th>Topic</th><th>Notes</th><th>Homework</th><th>Quiz</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Week">1</td>
+              <td data-label="Topic">Choice &amp; Probability</td>
+              <td data-label="Notes"><a href="GDRT/Week%201/Notes/123/Lec123.pdf">Lectures 1–3</a> <a href="GDRT/Week%201/Notes/4/Lec4.pdf">Lecture 4</a></td>
+              <td data-label="Homework"><a href="GDRT/Week%201/Homework/HW1.pdf">Homework 1</a></td>
+              <td data-label="Quiz"><a href="GDRT/Week%201/Quiz/Quiz1.pdf">Quiz 1</a></td>
+            </tr>
+            <tr>
+              <td data-label="Week">2</td>
+              <td data-label="Topic">Normal-Form Games &amp; Nash Equilibrium</td>
+              <td data-label="Notes"><a href="GDRT/Week%202/Notes/56/Lec56.pdf">Lectures 5–6</a> <a href="GDRT/Week%202/Notes/7/Lec7.pdf">Lecture 7</a></td>
+              <td data-label="Homework"><a href="GDRT/Week%202/Homework/HW2.pdf">Homework 2</a></td>
+              <td data-label="Quiz"><a href="GDRT/Week%202/Quiz/Quiz2.pdf">Quiz 2</a></td>
+            </tr>
+            <tr>
+              <td data-label="Week">3</td>
+              <td data-label="Topic">Extensive-Form Games &amp; Subgame Perfection</td>
+              <td data-label="Notes"><a href="GDRT/Week%203/Notes/8910/Lec8910.pdf">Lectures 8–10</a> <a href="GDRT/Week%203/Notes/11/Lec11.pdf">Lecture 11</a></td>
+              <td data-label="Homework"><a href="GDRT/Week%203/Homework/HW3.pdf">Homework 3</a></td>
+              <td data-label="Quiz"><a href="GDRT/Week%203/Quiz/Quiz3.pdf">Quiz 3</a></td>
+            </tr>
+            <tr>
+              <td data-label="Week">4</td>
+              <td data-label="Topic">Social Choice &amp; Voting</td>
+              <td data-label="Notes"><a href="GDRT/Week%204/Notes/1213/Lec1213.pdf">Lectures 12–13</a> <a href="GDRT/Week%204/Notes/1415/Lec1415.pdf">Lectures 14–15</a></td>
+              <td data-label="Homework"><a href="GDRT/Week%204/Homework/HW4.pdf">Homework 4</a></td>
+              <td data-label="Quiz"><a href="GDRT/Week%204/Quiz/Quiz4.pdf">Quiz 4</a></td>
+            </tr>
+            <tr>
+              <td data-label="Week">5</td>
+              <td data-label="Topic">Mechanism Design &amp; Auctions</td>
+              <td data-label="Notes"><a href="GDRT/Week%205/Notes/1617/Lec1617.pdf">Lectures 16–17</a> <a href="GDRT/Week%205/Notes/18/Lec18.pdf">Lecture 18</a></td>
+              <td data-label="Homework"><a href="GDRT/Week%205/Homework/HW5.pdf">Homework 5</a></td>
+              <td data-label="Quiz"><a href="GDRT/Week%205/Quiz/Quiz5.pdf">Quiz 5</a></td>
+            </tr>
+            <tr>
+              <td data-label="Week">6</td>
+              <td data-label="Topic">Final Presentations</td>
+              <td data-label="Notes">—</td>
+              <td data-label="Homework">—</td>
+              <td data-label="Quiz"><a href="GDRT/Week%206/Quiz/Quiz6.pdf">Quiz 6</a></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
