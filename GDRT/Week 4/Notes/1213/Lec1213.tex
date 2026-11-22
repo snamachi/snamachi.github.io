@@ -1,0 +1,127 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{array}
+\usepackage{forest}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{}
+\date{}
+
+\begin{document}
+
+\section{Definitions}
+
+As usual, let $[N]=\{1,...,N\}$ be a finite set of agents. Let $X$ be a set of candidates/prizes.
+\\
+\\
+A \underline{strict linear order} over $X$ is a binary relation $\succ$ over $X$ which is:
+\\
+Transitive- $\forall a,b,c \in X$ if $a \succ b$ and $b \succ c$ then $a \succ c$.
+\\
+Strictly Complete- $\forall a,b \in X$ such that $a \neq b$, we have $a \not \succ a$ and either $a\succ b$ or $b \succ a$.
+\\
+Denote the set of all strict linear orders over $X$ by $\Theta$.
+\\
+A \underline{weak linear order} over $X$ is a binary relation $\succeq$ over $X$ which is:
+\\
+Transitive- $\forall a,b,c \in X$ if $a \succeq b$ and $b \succeq c$ then $a \succeq c$.
+\\
+Complete- $\forall a,b \in X$,  either $a\succeq b$ or $b \succeq a$.
+\\
+Denote the set of all weak linear orders over $X$ by $\overline{\Theta}$.
+\\
+\\
+A social choice rule is a function $f: \Theta^N \to \overline{\Theta}$. We think of the social choice rule as aggregating strict linear order profiles $\theta=(\succ_i)_{i \in [N]}\in \Theta^N$ amongst the agents in $[N]$ into a collective weak linear order $f(\theta) \in \overline{\Theta}$ over the candidates in $X$. 
+\\
+For convenience, we will denote the weak linear order $f(\theta)$ over $X$ by $\succeq_{f(\theta)}$.
+\\
+A social choice rule $f$ satisfies unanimity iff $\forall a,b \in X$ and $\forall \theta \in \Theta^N$ where $\theta=(\succ_i)_{i \in [N]}$, if $\forall i \in [N]$ we have that $a\succ_i b$ then it follows that $a \succ_{f(\theta)} b$. 
+\\
+A social choice rule $f$ satisfies binary independence iff $\forall a,b \in X$ and $\forall \theta, \theta' \in \Theta^N$  where $\theta=(\succ_i)_{i \in [N]}$ and $\theta'=(\succ'_i)_{i \in [N]}$, if $\forall i \in [N]$ we have that $a \succ_i b \leftrightarrow a \succ'_i b$ then $a \succeq_{f(\theta)} b \leftrightarrow a \succeq_{f(\theta')} b $.
+\\
+A social choice rule $f$ is a dictatorship iff there is a voter $i^* \in [N]$ such that $\forall a,b \in X$ and $\forall \theta \in \Theta^N$ where $\theta=(\succ_i)_{i \in [N]}$ we have that $a \succ_{i^*} b \leftrightarrow a \succ_{f(\theta)} b $ . 
+
+\section{Examples}
+\subsection*{Borda Count}
+
+Let $|X|=M$. Given a profile $\theta=(\succ_i)_{i \in [N]} \in \Theta^N$ and a candidate $x \in X$, define the Borda score of $x$ under $\theta$ by:
+$$s(x,\theta) = M+\sum_{i \in [N]} \big|\{y \in X : x \succ_i y\}\big|,$$
+i.e. each candidate $x$ gets $M$ default points and then every voter $i$ awards $x$ one extra point for each candidate $x$ beats in $i$'s ranking.
+\\
+\\
+The Borda count $f_B: \Theta^N \to \overline{\Theta}$ is defined by
+$$a \succeq_{f_B(\theta)} b \iff s(a,\theta) \ge s(b,\theta).$$
+Since $\ge$ on $\mathbb{R}$ is complete and transitive, $f_B(\theta) \in \overline{\Theta}$. However, $f_B$ fails binary independence. Namely, let $X=\{a,b,c\}$ and $N=7$. Consider $\theta=(\succ_i)_{i \in [7]}$ and $\theta'=(\succ'_i)_{i \in [7]}$ where $\forall i \in[4]$:
+$$a \succ_i b \succ_i c \text{ while } a \succ'_i c \succ'_i b$$
+and $\forall i \in[7] \backslash[4]$:
+$$b \succ_i c \succ_i a \text{ and } b \succ'_i c \succ'_i a.$$
+One can verify that $b \succ_{f_B(\theta)} a$ on the one hand while $a \succ_{f_B(\theta')} b$ on the other.
+\subsection*{Condorcet Method}
+
+Given a profile $\theta=(\succ_i)_{i\in[N]} \in \Theta^N$, define the relation $\succeq_M^\theta$ over $X$ by for all distinct $a,b \in X$ setting:
+$$a \succeq_M^\theta b \iff \big|\{i \in [N] : a \succ_i b\}\big| \geq \big|\{i \in [N]: b \succ_i a\}\big|.$$
+and always setting $a \succeq_M^{\theta}a$.
+\\
+\\
+The Condorcet method attempts to define a social choice rule $f_C: \Theta^N \to \overline{\Theta}$ by taking $f_C(\theta)$ to be the relation $\succeq_M^\theta$. However $\succeq_M^\theta$ may not be a weak linear order over $X$. The Condorcet paradox shows this. Let $X=\{a,b,c\}$ and $N=3$. Consider $\theta=(\succ_1,\succ_2,\succ_3)$ given by:
+$$\text{Voter 1: } a \succ_1 b \succ_1 c$$
+$$\text{Voter 2: } b \succ_2 c \succ_2 a$$
+$$\text{Voter 3: } c \succ_3 a \succ_3 b$$
+Voters $1$ and $3$ prefer $a$ to $b$, so $a \succ_M^\theta b$. Voters $1$ and $2$ prefer $b$ to $c$, so $b \succ_M^\theta c$. Voters $2$ and $3$ prefer $c$ to $a$, so $c \succ_M^\theta a$. Hence, $a \succ_M^\theta b \succ_M^\theta c \succ_M^\theta a$. But this means $\succeq_M^\theta \notin \overline{\Theta}$.
+
+\section{Theorems}
+\noindent\textbf{Theorem 15:} Let $|X|>2$, i.e. there are at least $3$ candidates. Any social choice rule $f: \Theta^N \to \overline{\Theta}$ which satisfies unanimity and binary independence must also be a dictatorship.
+\\
+\\
+\underline{Proof}
+\\
+Given two distinct candidates $a,b \in X$ define the pivotal voter from $a$ to $b$ as follows. 
+\\
+Consider a  profile $\theta^0 \in \Theta^N$ where $\theta^0=(\succ^0_i)_{i \in [N]}$ and $\forall i \in [N]$ we have $a \succ^0_i b$. By unanimity, we must have $a \succ_{f(\theta^0)} b$. Now for each $k \in [N]$ pick $\theta^k \in \Theta^N$ where $\theta^k=(\succ^k_i)$ so that $\forall i \in [k]$ we have $b \succ^k_i a$ and $\forall i \in [N] \backslash [k]$ we have $a \succ^k_i b$. Note the last preference profile $\theta^N$ will $\forall i \in [N]$ have $b \succ^N_i a$ and so by unanimity it follows that $b \succ_{f(\theta^N)} a$. Moreover we are guaranteed the existence of voter $b|a \in [N]$ such that:
+$$b|a=\min \{ k \in [N] : b \succeq_{f(\theta^k)} a\}.$$
+Note $b|a$ does not depend on our particular choice of $\theta^0,\theta^1...,\theta^N$ due to binary independence. We call the voter $b|a$ the pivotal voter from $a$ to $b$.
+\\
+\\
+\noindent Now consider a third distinct candidate $c \in X$ (which we can do since $|X|>2$). Suppose we have a  profile $\theta=(\succ_i)_{i \in [N]} \in \Theta^N$ so that $\forall i \in [(b|a)-1]$ we have:\footnote{In case $b|a=1$,  we just take a profile where $\forall i \in [N]$ we have $a \succ_i b \succ_i c$.}
+$$b \succ_i c \succ_i a$$
+and $\forall i \in [N] \backslash[(b|a)-1]$ we have:
+$$ a \succ_{i} b \succ_{i} c.$$  
+Since $b|a$ is the pivotal voter from $a$ to $b$ we know $a \succ_{f(\theta)} b$. By unanimity we know $b \succ_{f(\theta)} c$. Hence, by transitivity, it follows that $a \succ_{f(\theta)} c$. 
+\\
+\\
+Let $\theta'=(\succ'_i)_{i \in [N]} \in \Theta^N$ be a profile where:
+$$b \succ'_{b|a} a \succ'_{b|a} c$$
+and all other voters (who are not $b|a$) arbitrarily shuffle their preferences between $b$ and $c$ in $\theta$. Since $b|a$ is the pivotal voter from $a$ to $b$ and all other voters maintain their preferences between $a$ and $b$ from $\theta$ we know $b \succeq_{f(\theta')} a$. Additionally, since all voters maintain their preferences between $a$ and $c$ from $\theta$, binary independence implies $a \succ_{f(\theta')} c$ as we had that $a \succ_{f(\theta)} c$.  Thus, by transitivity it follows  $b \succ_{f(\theta')} c$. 
+\\
+\\
+Let $\theta''=(\succ''_i)_{i \in [N]} \in \Theta^N$ be a profile where all voters arbitrarily change their ranking of candidate $a$ in $\theta'$. Note $\theta''$ is simply any element of $\Theta^N$ where $b \succ''_{b|a} c$. Since all voters maintain their preferences between $b$ and $c$ from $\theta'$, binary  independence implies $b \succ_{f(\theta'')} c$ as we had that $b \succ_{f(\theta')} c$. Thus, for any candidate $c$ who is not candidate $a$, as long the pivotal voter $b|a$ strictly prefers $b$ to $c$ the social choice rule $f$ must also strictly prefer $b$ to $c$.
+\\
+\\
+Consider a profile $\tau=(\succ^\tau_i) \in \Theta^N$ such that $\forall i \in [b|a]$ we have:
+$$b \succ^{\tau}_i c$$
+and $\forall i \in [N] \backslash[b|a]$ we have:
+$$c \succ^{\tau}_i b.$$
+As we  argued earlier, since $b \succ^\tau_{b|a} c$, it must be that $b \succ_{f(\tau)} c$. Therefore it must be that the pivotal voter from $c$ to $b$ occurs no later than the pivotal voter from $a$ to $b$, i.e. $b|c \leq b|a$. 
+\\
+\\
+Now consider a profile $\lambda=(\succ^{\lambda}_i)_{i \in [N]} \in \Theta^N$ such that $\forall i \in [(b|a)-1]$ we have:\footnote{Again, in case $b|a=1$,  we just take a profile where $\forall i \in [N]$ we have $b \succ^{\lambda}_i c$.}
+$$c \succ_i^{\lambda} b$$
+and $\forall i \in [N]\backslash [(b|a)-1]$:
+$$b \succ_i^{\lambda} c.$$
+As we argued earlier since $b \succ^\lambda_{b|a} c$, it must be that $b \succ_{f(\lambda)} c$. Therefore it must be that the pivotal voter from $b$ to $c$ occurs no earlier than the pivotal voter from $a$ to $b$, i.e. $b|a \leq c|b$.
+\\
+\\
+Note then we have $b|c \leq b|a \leq c|b$. By symmetry $c|b \leq c|a \leq b|c$. Hence $b|c=b|a=c|a=c|b$. Using symmetry again, note $a|b=b|a=b|c=c|b=c|a=a|c$. Since $a,b,c$ were arbitrary, this means there is a single voter $i^* \in [N]$ who is pivotal for any pair of candidates in $\{a,b,c\}$. Furthermore $i^*$ is pivotal for arbitrary $x,y \in X$ which are distinct. Why? Note we can argue there is a single voter who is pivotal for any pair of candidates in $\{a,b,y\}$ as above. But since $i^*$ is pivotal for $a$ and $b$, this single voter must be $i^*$. Similary there is a single voter who is pivotal for any pair of candidates in $\{a,x,y\}$ and since $i^*$ is pivotal for $a$ and $y$, this single voter must be $i^*$. In particular, $i^*$ is the pivotal voter for $x$ and $y$ (i.e., $i^*=x|y=y|x$).
+\\
+\\
+This means given distinct candidates $x,y \in X$, since there is a third distinct candidate $z \in X$, if $i^*$ strictly prefers $x$ to $y$ then the social choice rule must also strictly prefer $x$ to $y$ as $i^*=x|z$ and if $i^*$ strictly prefers $y$ to $x$ then the social choice rule must also strictly prefer $y$ to $x$ as $i^*=y|z$. Thus we have shown $f$ is dictatorial (with dictator $i^*$). $\square$
+\end{document}

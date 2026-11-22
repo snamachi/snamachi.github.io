@@ -1,0 +1,107 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{}
+\date{}
+
+\begin{document}
+
+\section{Definitions}
+
+$\Omega$ is the set of all possible outcomes. We take $\Omega$ to be finite throughout.
+\\
+An event $E$ is just a subset of $\Omega$.
+\\
+Two events $E_1, E_2 \in 2^\Omega$ are mutually exclusive iff $E_1 \cap E_2=\varnothing$.
+\\
+A probability measure over $\Omega$ is a function $P:2^{\Omega} \to [0,1]$ such that:
+\\
+1. $P(\Omega)=1$.
+\\
+2. For any pairwise mutually exclusive $E_1,...,E_n \in 2^{\Omega}$, we have $P(\bigcup_{i=1}^n E_i)=\sum_{i=1}^n P(E_i)$.
+\\
+\\
+A lottery over a finite set of prizes $X$ is just a probability measure over $X$.
+\\
+Let $Z(X)$ denote the set of all lotteries over $X$.
+\\
+We can think of lotteries over $X$ as just being functions $g: X \to [0,1]$ such that $\sum_{x \in X} g(x)=1$.
+\\
+We interpret $g$ as a machine which returns prize $x \in X$ with objective chance $g(x)$.
+\\
+$\forall p \in [0,1]$, define the operation $\oplus_p: Z(X) \times Z(X) \to Z(X)$ so that $\forall g,h \in Z(X)$ and $\forall x \in X$:
+$$(g \oplus_p h)(x)=p\cdot g(x)+(1-p)\cdot h(x)$$
+The lottery $g \oplus_p h$ starts by flipping a weighted coin which lands heads with probability $p$. 
+\\
+If the coin comes up heads then $g \oplus_p h$ just runs the lottery $g$.
+\\
+If the coin comes up tails then $g \oplus_p h$ just runs the lottery $h$.
+\\
+A preference relation $\succeq$ over $Z(X)$ is just a binary relation over all lotteries.
+\\
+$\succeq$ is complete iff $\forall g,h \in Z(X)$ either $g \succeq h$ or $h \succeq g$.
+\\
+$\succeq$ is transitive iff $\forall g,h,i \in Z(X)$ if $g \succeq h$ and $h \succeq i$ then $g\succeq i$.
+\\
+$\succeq$ is continuous iff $\forall g,h,i \in Z(X)$ if $g \succeq h$ and $h \succeq i$ then $\exists p \in [0,1]$ s.t. $(g \oplus_p i) \sim h$.
+\\
+$\succeq$ satisfies independence iff $\forall g,h,i \in Z(X)$ and $\forall p \in [0,1]$, $g \succeq h \leftrightarrow (g \oplus_p i) \succeq (h \oplus_p i).$
+
+
+\section{Objective Probabilities (Chances)}
+Objectivist accounts of probability take probabilities to be an objective feature of the world. 
+\\
+Frequentists think of $P(E)$ as representing the limiting frequency with which the event $E$ occurs across infinitely many trials.
+\\
+But what does $P(E)$ mean if $E$ is the kind of event which can only happen once?
+\\
+A propensity theorist is a special kind of frequentist who believes $P(E)$ represents an ontological tendency for whether or not the event $E$ occurs on a single trial. On the propensity view, these tendencies \emph{cause} the limiting frequencies with which events occur across infinitely many trials.
+
+\section{Subjective Probabilities (Credences)}
+Subjectivist accounts of probability take probabilities to represent subjective degrees of belief.
+\\
+Under the betting interpretation, $P(E)$ represents the price at which an agent is willing to buy/sell a contract that says ``Pays \$1 if $E$ occurs."
+\\
+The idea is that the prices such an agent assigns to all events over $\Omega$ must satisfy the axioms of probability in order to avoid being `Dutch booked,' i.e. forced into a sure loss. The synchronic norm that your subjective degrees ought to satisfy the axioms of probability is called \emph{coherence}.
+\\
+For instance suppose $\Omega=\{H,T\}$ and the agent assigns $P(\{H\})=P(\{T\})=0.75$. If I sell the agent a contract that says ``Pays \$1 if $\{H\}$ occurs" and a contract that says ``Pays \$1 if $\{T\}$ occurs'' then I pocket \$1.5 up front. Later exactly one of $\{H\}$ or $\{T\}$ will occur at which point I owe the agent 	\$1, resulting in a loss $0.5$ cents for the agent and a profit of 0.5 cents for me. 
+
+\section{Bayes' Rule}
+Given a probability measure $P:2^{\Omega} \to [0,1]$ and an event $E \in 2^{\Omega}$ such that $P(E)>0$, define the conditional probability $P(\ \cdot \ |  E):2^{\Omega} \to [0,1]$ by $\forall A \in 2^{\Omega}$ setting:
+$$P(A|E)=\frac{P(A \cap E)}{P(E)}.$$
+This definition of conditional probability is called Bayes' rule.
+\\
+\\
+On the objective frequentist account of probability, $P(A|E)$ simply answers: ``Of the times the event $E$ occurs, what is the limiting relative frequency with which the event $A$ occurs?"
+\\
+\\
+Under the subjectivist account, $P( \ \cdot \ | E)$ represents how one should update their subjective degrees of belief (given by $P$) in light of some new evidence $E$. The betting interpretation justifies Bayesian update as a rational norm via diachronic Dutch book arguments.
+
+\section{Theorems}
+\textbf{Theorem 7:} Let $P: 2^{\Omega} \to \mathbb{R}$ be an arbitrary function. There is no `book' $B: 2^{\Omega} \to \mathbb{R}$ such that $\forall w \in \Omega$:
+$$\sum_{E \in 2^{\Omega}} B(E) \cdot (\mathbb{I}(w\in E)-P(E))>0$$ 
+iff $P$ is a probability measure.
+\\
+\\
+\textbf{Theorem 8:} A preference relation $\succeq$ over $Z(X)$ is complete, transitive, continuous, and satisfies independence iff there exists a utility function $u:X \to \mathbb{R}$ such that $\forall g,h \in Z(X)$:
+$$g \succeq h \leftrightarrow \sum_{x\in X}u(x) \cdot g(x) \geq \sum_{x\in X}u(x) \cdot h(x).$$
+In particular, $u$ is unique up to affine transformations. Stated differently, for any $u$ and $u'$ satisfying the above, there exists $a\in \mathbb{R}_{>0}$ and $b \in \mathbb{R}$ so that $\forall x \in X$, $u'(x)=a \cdot u(x)+b$.
+\section{Potential Projects}
+Since we have not proved either of the above theorems, a $20$ minute deep dive into any one of their proofs would be more than sufficient work for your final project. The first  is called de Finetti's Dutch book theorem. The second  is called the von Neumann-Morgenstern utility theorem. 
+\\
+\\
+You may also want to look into doing a project on diachronic Dutch book arguments.
+\\
+\\
+Finally note von Neumann-Morgenstern is a theory of \emph{objective} expected utility. Anscombe \& Aumann famously extended von Neumann \& Morgenstern's approach to develop a theory of \emph{subjective} expected utility. We will not have time to cover this theory in class, but even a presentation of the theory (with no proofs) would make an excellent final project.
+\end{document}

@@ -1,0 +1,48 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{}
+\date{}
+
+\begin{document}
+
+\section{Utility Maximizing satisfies WARP}
+Suppose an agent uses their utility function $u:X \to \mathbb{R}$ to construct a choice correspondence over $X$ by $\forall M \in \mathcal{M}(X)$ setting:
+$$C(M)=\argmax_{x \in M} u.$$
+Show that $C$ is in fact a choice correspondence and furthermore that $C$ satisfies WARP.
+
+\section{Dutch Book Practice}
+Suppose Alice's credences over the events $A, B, A\cap B, A \cup B$ are as follows:
+$$P(A)=P(B)=0.25,P(A\cup B)=0.5,P(A\cap B)=0.1.$$
+Construct a Dutch book against Alice.
+
+\section{Bayes' Rule Practice} 
+Suppose in a population $1\%$ of people have a deadly disease called boobooitis. Thankfully, we have a test that is 99\% accurate in that if someone who has boobooitis takes the test it will be positive 99\% of the time and if someone who doesn't have boobooitis takes the test it will be negative 99\% of the time. Imagine we administer this test to everyone in the population. Of the times the test returns a positive result for someone, how often will that person actually have boobooitis? 
+
+\section{A Consequence of Independence}
+Suppose an agent's preferences $\succeq$ over lotteries satisfy independence. Consider two arbitrary lotteries $g, h \in Z(X)$ such that $g \succeq h$. Prove $\forall p,q \in [0,1]$ that if $p>q$ then $g \oplus_p h \succeq g \oplus_q h$.
+
+
+
+\section{Valid Representations}
+Let $X=\{\text{chocolate}, \text{vanilla}, \text{strawberry}\}$. Consider the utility function $u:X \to \mathbb{R}$ which sets:
+$$u(\text{chocolate})=1,u(\text{vanilla})=2,u(\text{strawberry})=3$$
+(a) Suppose $u: X \to \mathbb{R}$ is a valid representation of an agent's preferences $\succeq$ over prizes in $X$, i.e.:
+$$\forall a, b \in X, a \succeq b \leftrightarrow u(a) \geq u(b).$$
+Is $u^3$ also a valid representation of the agent's preferences $\succeq$ over prizes in $X$? Justify your answer using a relevant theorem from lecture. 
+\\
+\\
+(b) Suppose $u: X \to \mathbb{R}$ is a valid representation of an agent's preferences $\succeq$ over lotteries in $Z(X)$, i.e.:
+$$\forall g,h \in Z(X), g \succeq h \leftrightarrow \sum_{x \in X}u(x) \cdot g(x) \geq \sum_{x \in X}u(x) \cdot h(x)$$
+Is $u^3$ also a valid representation of the agent's preferences $\succeq$ over lotteries in $Z(X)$? Justify your answer using a relevant theorem from lecture. 
+\end{document}

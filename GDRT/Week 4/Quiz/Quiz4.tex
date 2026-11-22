@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{multirow}
+\usepackage{forest}
+
+\begin{document}
+
+\noindent
+\textbf{Name:}\underline{\hspace{6cm}} \hfill \textbf{Date:}\underline{\hspace{3cm}}
+
+\vspace{0.5em}
+\noindent\textit{Side 1 of 2}
+
+\vspace{1.5em}
+\noindent\textbf{1. Consider the extensive-form game below. Player 1 moves first, choosing $L$ or $R$. If Player 1 chooses $R$, Player 2 then chooses $U$ or $D$. Payoffs are listed as (Player 1's payoff, Player 2's payoff).}
+
+\begin{center}
+\begin{forest}
+[$\varepsilon$
+    [{$(L,*)$}
+        [{$(4,2)$}]
+    ]
+    [{$(R,*)$}
+        [{$(*,U)$}
+            [{$(1,1)$}]
+        ]
+        [{$(*,D)$}
+            [{$(3,5)$}]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\noindent \textbf{State the full subgame perfect equilibrium (as an action plan for each player) and the resulting equilibrium payoffs.}
+
+\vfill
+\newpage
+
+\noindent\textit{Side 2 of 2}
+
+\vspace{1.5em}
+\noindent \textbf{2. Please summarize the SPE existence proof as asked on the homework. Your summary should clearly explain \#1) How the base case is set up for the induction, \#2) Where the inductive hypothesis is used, \#3) How the candidate SPE is constructed, \#4) Where and why Nash's existence result is used (it is used multiple times), \#5) Where and why the one shot deviation principle is used, and \#6) The ultimate source of the final contradiction.}
+
+\vfill
+
+\end{document}

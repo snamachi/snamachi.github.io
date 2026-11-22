@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{forest}
+
+\begin{document}
+
+\noindent
+\textbf{Name:}\underline{\hspace{6cm}} \hfill \textbf{Date:}\underline{\hspace{3cm}}
+
+\vspace{0.5em}
+\noindent\textit{Side 1 of 2}
+
+\vspace{1.5em}
+\noindent\textbf{1. Suppose we have a set of four candidates $X=\{w,x,y,z\}$ as well as four agents Alice (A), Bob (B), Charlie (C), and Dave (D) whose preferences over $X$ are given by the following strict linear orders:}
+\begin{align*}
+\text{A}&: w \succ_\text{A} x	\succ_\text{A} y \succ_\text{A} z
+\\
+\text{B}&: x \succ_\text{B} y	\succ_\text{B} z \succ_\text{B} w
+\\
+\text{C}&: y \succ_\text{C} z	\succ_\text{C} w \succ_\text{C} x
+\\
+\text{D}&: z \succ_\text{D} w	\succ_\text{D} x \succ_\text{D} y.
+\end{align*}
+
+\noindent \textbf{Will using the Condorcet method on Alice, Bob, Charlie, and Dave's preferences output a weak linear order? Justify your answer.}
+
+\vfill
+\newpage
+
+\noindent\textit{Side 2 of 2}
+
+\vspace{1.5em}
+\noindent \textbf{2. Suppose we have a set of three candidates $X=\{x,y,z\}$ and three voters Alice (A), Bob (B), and Charlie (C) whose preferences over $X$ are given by the following strict linear orders:}
+\begin{align*}
+\text{A}&: x	\succ_\text{A} y \succ_\text{A} z
+\\
+\text{B}&: y \succ_\text{B} z 	\succ_\text{B} x 
+\\
+\text{C}&: z \succ_\text{C} x 	\succ_\text{C}  y
+\end{align*}
+\noindent \textbf{Consider the voting system which first computes the `score' of each candidate using Borda count and outputs the candidate with the highest score as winner, breaking ties via alphabetical order. For instance, if Alice, Bob, and Charlie were to report their true preferences, the voting system would assign a score of 1+2+3=6 to each candidate and then output $x$ as winner (since it precedes $y$ and $z$ alphabetically).}
+\\
+\\
+\noindent \textbf{Suppose Alice and Bob report their true preferences. Is truthful reporting a best response for Charlie in this context? Justify your answer.}
+\vfill
+
+\end{document}

@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{array}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{}
+\date{}
+
+\begin{document}
+
+\section{Definitions}
+
+Given a normal form game  $G=((A_i)_{i \in [N]},(u_i)_{i \in [N]})$, recall that we define a (mixed) strategy for player $i$ to be a probability distribution $s_i \in \Delta(A_i)$. 
+\\
+An action $a_i \in A_i$ is just the (pure) strategy $s_i \in \Delta(A_i)$ which sets $s_i(a_i)=1$.
+\\
+Going forward we will denote $\Delta(A_i)$ by $S_i$.
+\\
+A strategy profile is an element $s \in S=\prod_{i \in [N]} S_i=S_1 \times ...\times S_N$.
+\\
+The set $S_{-i}=\prod_{j \in [N]\backslash\{i\}}$ denotes the set of all strategy profiles not containing agent $i$'s strategy.
+\\
+\\
+Given $s \in S$ we write $u_i(s)$ as shorthand to mean:
+$$u_i(s)=\sum_{a \in A} u_i(a) \cdot \prod_{j \in [N]} s_j(a_j)$$
+Next, given $s_i \in S_i$ and $s'_{-i} \in S_{-i}$, we write $u_i(s_i;s'_{-i})$ as shorthand for $u_i(z)$ where $z$ is the strategy profile whose $i$th component is given by $s_i\in S_i$ and whose remaining components are  $s'_{-i} \in S_{-i}$.
+\\
+\\
+A (mixed) strategy Nash equilibrium is a strategy profile $s^* \in S$ such that $\forall i \in [N]$:
+$$s^*_i \in \argmax_{s_i \in S_i} u_i(\ \cdot \ ;s^*_{-i}).$$
+A pure strategy Nash equilibrium is an action profile $a^* \in A$. such that $\forall i \in [N]$:
+$$a^*_i \in \argmax_{a_i \in A_i} u_i(\ \cdot \ ; a^*_{-i})$$
+
+\section{Examples}
+
+\subsection*{Chicken}
+
+$N = \{1, 2\}$, $A_1 = A_2 = \{\text{Swerve}, \text{Straight}\}$.
+
+\begin{center}
+\begin{tabular}{r|c|c|}
+  & Swerve & Straight \\\hline
+Swerve & $0, 0$ & $-1, 1$ \\\hline
+Straight & $1, -1$ & $-10, -10$ \\\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Stag Hunt}
+
+$N = \{1, 2\}$, $A_1 = A_2 = \{\text{Stag}, \text{Hare}\}$.
+
+\begin{center}
+\begin{tabular}{r|c|c|}
+  & Stag & Hare \\\hline
+Stag & $2, 2$ & $0, 1$ \\\hline
+Hare & $1, 0$ & $1, 1$ \\\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Bach or Stravinsky}
+
+$N = \{1, 2\}$, $A_1 = A_2 = \{\text{Opera}, \text{Football}\}$.
+
+\begin{center}
+\begin{tabular}{r|c|c|}
+  & Bach & Stravinsky \\\hline
+Bach & $2, 1$ & $0, 0$ \\\hline
+Stravinsky & $0, 0$ & $1, 2$ \\\hline
+\end{tabular}
+\end{center}
+
+\section{Agrippa's Trilemma}
+Agrippa was an ancient Greek skeptic from the 1st century CE. He argued it was impossible to fully justify any belief if:
+\\
+\\
+I. All beliefs must be justified by some reason.
+\\
+II. Circular reasoning is not allowed. 
+\\
+III. Infinite chains of justification are not allowed.
+\\
+\\
+Since actions are justified by beliefs (and on certain views, synonymous with belief) this would imply it is also impossible to fully justify any action!
+\\
+\\
+Foundationalist theories of justification drop Agrippa's first requirement.
+\\
+Coherentist theories of justification drop Agrippa's second requirement.
+\\
+Infinitist theories of justification drop Agrippa's third requirement.
+\\
+\\
+Agent $i$ playing an action in $\argmax_{a_i \in A_i} u_i(\ \cdot \ ; b_i)$ can be justified by foundationalism.
+\\
+Agent $i$ playing an action which is part of Nash equilibrium can be justified by coherentism.
+\\
+Agent $i$ playing a rationalizable action which is in $A^{\infty}_i$ can be justified by infinitism.
+
+
+\section{Theorems}
+\textbf{Theorem 11:} For any nontrivial normal form game $G$ (i.e. $A \neq \varnothing$) with finitely many players where each players' action set $A_i$ is finite, there always exists a mixed strategy Nash equilibrium.
+
+\section{Potential Projects}
+The proof of the above theorem was first discovered by John Nash. It is highly nontrivial, but if you would like to present on it for your final project you are more than welcome to. Another solution concept I was planning on covering (but will not due to lack of time) is called correlated equilibrium. I think introducing the class to this solution concept and working through some illustrative examples would be a good final project. Additionally, while we discussed what it means for an action to be rationalizable, I did not define what it means for a strategy to be rationalizable. This requires us to be more precise regarding the intuition that rationalizable actions are those which can be justified by infinite chains of reasoning. I would also be more than willing to support a final project looking into this aspect of rationalizability.  
+
+\end{document}

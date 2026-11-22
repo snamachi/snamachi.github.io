@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{array}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{}
+\date{}
+
+\begin{document}
+
+\section{Definitions}
+
+A finite extensive form game $G=((A_i)_{i \in [N]}, (H_t)_{t \in \mathbb{N}}, (u_i)_{i \in [N]})$ is a game of perfect information iff $\forall h \in H\backslash H_{\bot},$ $\exists i \in [N], \forall j \in [N] \backslash \{i\}, |A_j(h)|=1$. In other words, at any nonterminal history, there is at most one player who has more than $1$ legal move available.
+\\
+\\
+Further, we say $G$ is a win-lose-draw game iff $N=2$ and $\forall h \in H_{\bot}$ we have that $u_1(h)+u_2(h)=0$  and $u_1(h),u_2(h) \in \{-1,0,1\}$. In other words, $G$ is a two-player zero-sum game which ends in one player beating the other or both players tying (i.e. no intrinsic cardinal payoff). 
+\\
+\\
+Today, we will assume throughout that $G$ is a finite win-lose-draw game of perfect information. Say such a game is determined iff\footnote{Equivalently, there exists an agent $i\in\{1,2\}$ and an action plan $\pi_i \in \Psi^G_i$ so that $\max_{\pi'_{-i} \in \Psi^G_{-i}} u_{-i}(\ \cdot \ ; \pi_i) \leq 0.$}  either:
+\\
+A) There exists an agent $i \in \{1,2\}$ and an action plan $\pi_i \in \Psi^G_i$ so that  $\max_{\pi'_{-i} \in \Psi^G_{-i}} u_{-i}(\ \cdot \ ; \pi_i)=-1.$
+B) There exists an agent $i \in \{1,2\}$ and an action plan $\pi_i \in \Psi^G_i$ so that $\max_{\pi'_{-i} \in \Psi^G_{-i}} u_{-i}(\ \cdot \ ; \pi_i)=0.$
+\\
+If a game is determined, this means that either some player can force a win or some player can force a draw. In principle, such games can be `solved.'
+\\
+\\
+Zermelo's theorem states EVERY finite win-lose-draw game of perfect information is determined!
+
+\section{Examples}
+\subsection*{Tic Tac Toe + Chess}
+$N=2$, $A_1=A_2=\{\text{All Possible Game Boards}\} \cup \{*\}$.
+\\
+$H_0=\{\varepsilon\}$. Additionally $\forall t>0$:
+\\
+$H_{2t+1}=\{h \in A^{2t+1} : \exists h' \in H_{2t}, \exists a_1 \in A_1, \text{ s.t. } h=h'||(a_1,*) \text{ \& player 1 at the end of history } h'$
+$\text{can legally change the board to } a_1\}.$ 
+\\
+$H_{2t}=\{h \in A^{2t} : \exists h' \in H_{2t-1}, \exists a_2 \in A_2, \text{ s.t. } h=h'||(*,a_2) \text{ \& player 2 at the end of history } h'$
+$\text{can legally change the board to } a_2\}.$
+\\
+\\
+Note for Tic Tac Toe the game must terminate in at most $9$ moves, i.e. $H_{10}=\varnothing$. 
+\\
+Furthermore $\forall h \in H \backslash H_{\bot}$ we have $u_2(h)=-u_1(h)$ and:
+$$u_1(h)=\begin{cases}1 & h \text{ ends with 3 X's in a row} \\ -1 & h \text{ ends with 3 O's in a row} \\ 0 & \text{else}.\end{cases}$$
+Apparently for chess the game must terminate in at most 17,697 moves, i.e. $H_{17,698}=\varnothing$.
+\\
+Furthermore $\forall h \in H \backslash H_{\bot}$ we have $u_2(h)=-u_1(h)$ and:
+$$u_1(h)=\begin{cases}1 & h \text{ ends with white beating black} \\ -1 & h \text{ ends with black beating white} \\ 0 & \text{$h$ ends in a stalemate}\end{cases}$$
+
+
+\section{Theorems}
+
+\textbf{Theorem 14:} If $G$ is a nontrivial finite win-lose-draw game of perfect information (i.e. $H \neq \{\varepsilon\}$) then $G$ is determined.
+\\
+\\
+\underline{Proof}
+\\
+Suppose $G=\{(A_i)_{i \in \{1,2\}}, (H_t)_{t \in \mathbb{N}}, (u_i)_{i \in \{1,2\}}\}$ and $T=\min\{t \in \mathbb{N} : H_t=\varnothing\}$ (we know such a $T$ exists by finiteness). By assumption $T>1$. We proceed by induction on $T$. Suppose $T=2$. Note $H_\bot = H_1 = \prod_{i \in [N]} A_i(\varepsilon)=A(\varepsilon)$. Since $G$ has perfect information we can WLOG suppose $|A_2(\varepsilon)|=1$ and call player 2's root action $a_2^*$. Further, because the only nonterminal history in $H \backslash H_{\bot}$ is $\varepsilon$, an action plan for player $i$ simply specifies an action in $A_i(\varepsilon)$ and their utilities are given by a function $u_i: A(\varepsilon) \to \mathbb{R}$. Pick arbitrary $a_1^* \in \argmax_{a_1 \in A_1(\varepsilon)} u_1(\ \cdot \ ; a_2^
+*)$. 
+\\
+If $u_1(a^*_1;a^*_2) \leq 0$ then $a_2^*$ is an element of $A_2(\varepsilon)$ s.t. $\max_{a_1 \in A_1(\varepsilon)} u_1(\ \cdot \ ; a_2^*) \leq 0$. 
+\\
+If $u_1(a^*_1;a^*_2) > 0$ then since $u_2(a^*_2;a^*_1) < 0$ and $a_2^*$ is the only element of $A_2(\varepsilon)$, we have $a_1^*$ is an element of $A_1(\varepsilon)$ s.t. $\max_{a_2 \in A_2(\varepsilon)} u_2(\ \cdot \ ;a_1^* ) < 0$. 
+\\
+Thus, in all cases, we can conclude $G$ is determined.
+\\
+\\
+For the inductive step, assume we have now established the result whenever $1<T \leq k$. We will next demonstrate the result for when $T=k+1$. Since $G$ has perfect information we can WLOG suppose $|A_2(\varepsilon)|=1$ and call player 2's root action $a_2^*$. Next, enumerate the nonterminal histories in $H_1 \backslash H_{\bot}$ by $z_1,...,z_M$ (we can do this because each $A_i$ is finite).  Note for each $m \in [M]$ that in the win-lose-draw subgame $G^{z_m||}$ we have $1<\min\{t \in \mathbb{N} : H^{z_m||}_t=\varnothing\}\leq k$. Hence, by hypothesis, each $G^{z_m||}$ is determined. 
+\\
+Suppose $\forall a_1 \in A_1(\varepsilon)$ if $(a_1,a^*_2) \in H_{\bot}$ then $u_1((a_1,a^*_2))\leq 0$ and $\forall m\in [M]$ there is some $\pi^m_2 \in \Psi^{G^{z_m||}}_2$ so that $\max_{\pi'_1 \in \Psi^{G^{z_m||}}_1} u^{z_m||}_1(\ \cdot \ ; \pi^m_2) \leq 0$. Consider the action plan $\pi^*_2 \in \Psi_2^G$ which $\forall h \in H\backslash H_{\bot}$ sets:
+$$\pi^*_2(h)=\begin{cases}a_2^* & h=\varepsilon \\ \pi^m_2(h') & h=z_m||h'.\end{cases}$$
+Take an arbitrary action plan $\pi_1 \in \Psi^G_1$. If $(\pi_1(\varepsilon),\pi^*_2(\varepsilon)) \in H_{\bot}$ then since $\pi^*_2(\varepsilon)=a^*_2$ it follows that $u_1(\pi_1;\pi^*_2) \leq 0$. On the other hand if there is some $m\in[M]$ s.t. $(\pi_1(\varepsilon),\pi^*_2(\varepsilon)) =z_m$ then $u_1(\pi_1;\pi^*_2)=u_1^{z_m||}(\pi_1^{z_m||}; {\pi^*_2}^{z_m||})=u_1^{z_m||}(\pi_1^{z_m||}; {\pi}^{m}_2) \leq 0$.  Since $\pi_1$ was arbitrary this means $\pi^*_2$ is an element of $\Psi_2^G$ s.t. $\max_{\pi_1 \in \Psi^G_1} u_1(\ \cdot \ ; \pi^*_2) \leq 0$.
+\\
+\\
+We must now consider what happens if there is some $a_1^* \in A_1(\varepsilon)$ such that $(a^*_1,a_2^*) \in H_{\bot}$ and $u_1((a^*_1,a^*_2)) > 0$ or there is some $m^*\in [M]$ s.t. $\forall \pi'_2 \in \Psi^{G^{z_{m^*}||}}_2,$ $\max_{\pi_1 \in \Psi^{G^{z_{m^*}||}}_1} u^{z_{m^*}||}_1(\ \cdot \ ; \pi'_2)> 0$. In the former case, consider any action plan $\pi_1^* \in \Psi^G_1$ which sets $\pi_1^*(\varepsilon)=a_1^*$. Take an arbitrary action plan $\pi_2 \in \Psi_2^G$. Note $(\pi^*_1(\varepsilon),\pi_2(\varepsilon))=(a^*_1,a^*_2)$ and hence $u_1(\pi^*_1;\pi_2) > 0$, i.e. we have that $u_2(\pi_2; \pi^*_1) < 0$. Since $\pi_2$ was arbitrary this means $\pi^*_1$ is an element of $\Psi^G_1$ s.t.  $\max_{\pi_2 \in \Psi^G_2} u_2(\ \cdot \ ; \pi^*_1) < 0$. In the latter case, since $G^{z_{m^*}||}$ is determined, there must be some $\pi^{m^*}_1 \in \Psi^{G^{z_{m^*}||}}_1$ so that $\max_{\pi'_2 \in \Psi^{G^{z_{m^*}||}}_2} u^{z_{m^*}||}_2(\ \cdot \ ; \pi^{m^*}_1) \leq 0$. Consider the  plan $\pi^*_1 \in \Psi_1^G$ which $\forall h \in H\backslash H_{\bot}$ sets:
+$$\pi^*_1(h)=\begin{cases} ({z_{m^*}})_1 & h=\varepsilon \\ \pi^{m^*}_1(h') & h=z_{m^*}||h'\\ r \in A_1(h) & \text{else}.\end{cases}$$
+Take arbitrary action plan $\pi_2 \in \Psi_2^G$. Note $(\pi^*_1(\varepsilon),\pi_2(\varepsilon))=((z_{m^*})_1,a^*_2)=z_{m^*}$ and hence it follows $u_2(\pi_2; \pi^*_1)=u_2^{z_{m^*}||}(\pi_2^{z_{m^*}||};{\pi^*_1}^{z_{m^*}||})=u_2^{z_{m^*}||}(\pi_2^{z_{m^*}||};\pi^{m^*}_1) \leq 0$. Since $\pi_2$ was arbitrary this means $\pi^*_1$ is an element of $\Psi^G_1$ s.t. $\max_{\pi_2 \in \Psi^G_2} u_2(\ \cdot \ ; \pi^*_1) \leq 0$. $\square$
+
+\section{Potential Projects}
+The literature on sequential games (as one might expect) is vast. Much of the literature focuses on infinitely repeated simultaneous games (like Prisoner's dilemma). We have not discussed the theory of infinite extensive form games, but if this topic interests you, please let me know and I will help you navigate different project ideas. Another infinite extensive form game (but of perfect information) is Rubinstein's bargaining game. The players in this game have  continuous action sets which further complicates matters. Nevertheless, Rubinstein's analysis is fascinating. More down to Earth projects might involve explicitly analyzing a game like Connect 4 where winning strategies are known. In order to qualify, this kind of project will have to say something interesting about how the winning strategy works in an enlightening way. 
+
+\end{document}

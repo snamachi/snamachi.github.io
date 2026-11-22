@@ -1,0 +1,235 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{array}
+\usepackage{forest}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[margin=1in]{geometry}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\title{}
+\date{}
+\begin{document}
+\section{Definitions}
+As usual, let $[N]=\{1,...,N\}$ be a finite set of agents. Imagine a single type of
+good is being auctioned off and each agent $i \in [N]$ has a private value $v_i \in
+\mathbb {R}_{\geq 0}$ they assign per unit of the good.
+\\
+Let $\mathbb{B}=\mathbb{R}_{\geq 0}^N$ be the set of possible bid profiles. Given
+$b \in \mathbb{B}$ and $i \in [N]$ write $b_i$ to denote the $i$th component of $b$
+and $b_{-i}$ to denote the remaining components. Note $v=(v_i)_{i \in [N]}\in \mathbb{B}$.
+\\
+Let $\mathbb{A}=\mathbb{R}_{\geq 0}^N$ be the set of possible allocations for how
+much of the good each agent receives.
+\\
+Let $\mathbb{P}=\mathbb{R}_{\geq 0}^N$ be the set of possible payments for how much
+each agent pays the auctioneer.
+\\
+\\
+An allocation rule is a function $x: \mathbb{B} \to \mathbb{A}$. The goal of an
+auctioneer is to find out $v \in \mathbb{B}$ and allocate resources according to
+$x(v)$. We write $x(b_i;b'_{-i})$ to denote the output of $x$ when given an input
+bid profile whose $i$th component is $b_i$ and whose other components are given by
+$b'_{-i}.$ Additionally we write $x_i(b)$ to denote the $i$th component of $x(b)$,
+i.e. how much of the good agent $i$ is allocated when everyone bids according to $b
+\in \mathbb{B}.$ The set $x(\mathbb{B})=\{a \in \mathbb{A} : \exists b \in
+\mathbb{B}, x(b)=a\}$ is often called the set of feasible allocations. An
+allocation rule $x: \mathbb{B} \to \mathbb{A}$ is monotone iff $\forall i \in [N]$
+and $\forall b,b' \in \mathbb{B}$ if $b'_i > b_i$ and $b'_{-i}=b_{-i}$ then
+$x_i(b') \geq x_i(b)$.
+\\
+\\
+A payment rule is a function $p: \mathbb{B} \to \mathbb{P}$. Again, we write
+$p(b_i;b'_{-i})$ to denote the output of $p$ when given an input bid profile whose
+$i$th component is $b_i$ and whose other components are given by $b'_{-i}$.
+Additionally, we write $p_i(b)$ to denote the $i$th component of $p(b)$, i.e. how
+much agent $i$ pays the auctioneer whenever everyone bids according to $b\in
+\mathbb{B}.$ For all $i \in [N]$ we take agent $i$'s payoff when everyone bids $b
+\in \mathbb{B}$ to be given by $v_i \cdot x_i(b)-p_i(b)$. The point of the payment
+rule is to help the auctioneer find out $v \in \mathbb{B}$ so they may allocate
+resources according to $x(v)$.
+\\
+\\
+We say that a payment rule $p$ implements the allocation rule $x$ iff:
+\\
+1. (Strategy Proofness)- $\forall v \in \mathbb{B}, \forall i \in [N], \forall b
+\in \mathbb{B}, v_i \cdot x_i(v_i;b_{-i})-p_i(v_i;b_{-i}) \geq v_i \cdot x_i(b)-
+p_i(b)$.
+\\
+2. (Individual Rationality)- $\forall v \in \mathbb{B}, \forall i \in [N], \forall
+b \in \mathbb{B}, v_i \cdot x_i(v_i;b_{-i})-p_i(v_i;b_{-i}) \geq 0$.
+\\
+Strategy proofness ensures an always best response for each agent is to just bid
+their true valuation. Individual rationality ensures that bidding their true
+valuation always results in nonnegative utility. Together these conditions imply
+that, by using the payment rule $p$ along with the allocation rule $x$, everyone is
+incentivized to participate in the auction truthfully and the final allocation will
+be given by the allocation $x(v) \in \mathbb{A}.$
+\section{Examples}
+\subsection*{Single Indivisible Unit to Highest Bidder}
+Consider the allocation rule $x:\mathbb{B} \to \mathbb{A}$ which $\forall b \in
+\mathbb{B}$ and $\forall i \in [N]$ sets:
+$$x_i(b)=\begin{cases}1 & i=\min\argmax_{j \in [N]} b_j \\ 0 & \text{else}.
+\end{cases}$$
+Note $x(\mathbb{B})$ consists of all tuples in $\mathbb{R}^N_{\geq 0}$ with exactly
+1 entry equal to 1 and the remaining $N-1$ entries equal to $0$.
+\subsection*{$k$ Indivisible Units to $k$ Highest Bidders}
+Suppose $k< N$. Consider the allocation rule $x:\mathbb{B} \to \mathbb{A}$ which $
+\forall b \in \mathbb{B}$ and $\forall i \in [N]$ sets:
+$$x_i(b)=\begin{cases}1 & i \in \lambda(b) \\ 0 & \text{else}. \end{cases}$$
+where $\lambda(b)$ is the set of $k$ agents such that $\forall i \in \lambda(b),
+\forall j \in [N] \backslash \lambda(b)$ we have $b_i \geq b_j$ and if $b_i=b_j$ we
+have $i < j$. Note $x(\mathbb{B})$ consists of all tuples in $\mathbb{R}^N_{\geq
+0}$ with exactly $k$ entries equal to 1 and the remaining $N-k$ entries equal to
+$0$.
+\subsection*{Single Divisible Unit Allocated Proportional to Bid}
+Consider the allocation rule $x:\mathbb{B} \to \mathbb{A}$ which $\forall b \in
+\mathbb{B}$ and $\forall i \in [N]$ sets:
+$$x_i(b)=\begin{cases} \frac{b_i}{\sum_{j \in [N]} b_j} & b_i \neq 0 \\ 0 &
+\text{else}. \end{cases}$$
+Note $x(\mathbb{B})$ consists of all tuples in $\mathbb{R}^N_{\geq 0}$ whose
+entries sum to $1$ as well as the tuple of all $0$'s.
+\subsection*{First Price vs. Second Price}
+Consider the allocation rule $x: \mathbb{B} \to \mathbb{A}$ which allocates a
+single indivisible unit to the highest bidder (our first example). Consider the
+payment rules $p^1: \mathbb{B} \to \mathbb{P}$ and $p^2: \mathbb{B} \to \mathbb{P}$
+which $\forall b \in \mathbb{B}$ and $\forall i \in [N]$ set:
+$$p^1_i(b)=\begin{cases}b_i & i=\min \argmax_{j \in [N]} b_j \\ 0 & \text{else}
+\end{cases}$$
+$$p^2_i(b)=\begin{cases} \max_{j \in [N] \backslash \{i\}} b_j & i=\min \argmax_{j
+\in [N]} b_j \\ 0 & \text{else} \end{cases}.$$
+Under $p^1$, the agent who receives the item under $x$ pays the amount they bid.
+While $p^1$ satisfies individual rationality for $x$ it does not satisfy strategy
+proofness. Under $p^2$, the agent who receives the item under $x$ pays the highest
+bid amongst everyone who does not receive the item under $x$. Note $p^2$
+successfully implements $x$ as it satisfies both individual rationality and
+strategy proofness.
+\section{Theorems}
+\noindent\textbf{Theorem 19:} There exists a payment rule $p: \mathbb{B} \to
+\mathbb{P}$ which implements the allocation rule $x: \mathbb{B} \to \mathbb{A}$ iff
+$x$ is monotone. In particular, for any monotone allocation rule $x: \mathbb{B} \to
+\mathbb{A}$ there exists a unique payment rule $p: \mathbb{B} \to \mathbb{P}$ which
+implements it.
+\\
+\\
+\underline{Proof}
+\\
+Suppose there exists a payment rule $p: \mathbb{B} \to \mathbb{P}$ which implements
+the allocation rule $x: \mathbb{B} \to \mathbb{A}$. Take arbitrary $i \in [N]$ and
+$b,b' \in \mathbb{B}$ such that $b'_i > b_i$ and $b'_{-i}=b_{-i}$. Imagine agents'
+true valuations are given by $v=b' \in \mathbb{B}$. Then strategy proofness
+implies:
+$$b'_i \cdot x_i(b')-p_i(b') =b'_i \cdot x_i(b'_i;b_{-i})-p_i(b'_i;b_{-i}) \geq
+b'_i \cdot x_i(b)-p_i(b).$$
+Rearranging, this means $b'_i \cdot (x_i(b')-x_i(b)) \geq p_i(b')-p_i(b)$.
+\newpage
+\noindent Now imagine agent's true valuations are given by $v=b \in \mathbb{B}$.
+Similar to before, strategy proofness implies:
+$$b_i \cdot x_i(b) - p_i(b)=b_i \cdot x_i(b_i; b'_{-i})-p_i(b_i; b'_{-i}) \geq b_i
+\cdot x_i(b')-p_i(b').$$
+Rearranging, this means $p_i(b')-p_i(b) \geq b_i \cdot (x_i(b')-x_i(b))$. Hence:
+$$b'_i \cdot (x_i(b')-x_i(b)) \geq p_i(b')-p_i(b) \geq b_i \cdot (x_i(b')-x_i(b)) $$
+and so:
+$$(b'_i-b_i) \cdot (x_i(b')-x_i(b)) \geq 0.$$
+Since $b'_i -b_i>0$, we must have $x_i(b')-x_i(b) \geq 0$, i.e. $x_i(b') \geq
+x_i(b)$. Thus $x$ is monotone.
+\\
+\\
+Now suppose $x: \mathbb{B} \to \mathbb{A}$ is monotone. Take arbitrary $i \in [N]$
+and $y,z \in \mathbb{R}_{\geq 0}$ such that $y < z$. Additionally, take arbitrary
+$b \in \mathbb{B}$. If $x$ were to be implementable by some payment rule $p:
+\mathbb{B} \to \mathbb{P}$, the preceding argument shows us:
+$$y \cdot (x_i(z;b_{-i})-x_i(y;b_{-i})) \leq p_i(z;b_{-i})-p_i(y;b_{-i}) \leq z
+\cdot (x_i(z;b_{-i})-x_i(y;b_{-i})).$$
+In particular, since $y$ and $z$ are arbitrary, we can take $(r_t)_{t \in
+\{0,...,m\}}$ to be given by $r_t=b_i \cdot \frac{t}{m}$ with $m>1$ so $r_0=0$
+while $r_m=b_i$ and conclude that:
+$$\sum_{t \in [m]} r_{t-1} \cdot (x_i(r_t;b_{-i})-x_i(r_{t-1};b_{-i})) \leq
+p_i(b)-p_i(0;b_{-i}) \leq \sum_{t \in [m]} r_t \cdot (x_i(r_t;b_{-i})-
+x_i(r_{t-1};b_{-i})).$$
+since $\sum_{t \in [m]} (p_i(r_t;b_{-i})-p_i(r_{t-1};b_{-i}))=p_i(r_m;b_{-i})-
+p_i(r_0;b_{-i})=p_i(b)-p_i(0;b_{-i})$.
+\\
+\\
+Rearranging we have:
+\begin{align*}
+\sum_{t \in [m]} r_{t-1} \cdot (x_i(r_t;b_{-i})-x_i(r_{t-1};b_{-i}))&=[r_{m-1}
+\cdot x_i(r_m;b_{-i})-r_{0} \cdot x_i(r_0;b_{-i})]-\sum_{t \in [m-1]} x_i(r_t;b_{-
+i}) \cdot (r_t-r_{t-1})
+\\
+&=r_{m-1} \cdot x_i(b)-\sum_{t \in [m-1]} x_i(r_t;b_{-i}) \cdot (r_t-r_{t-1})
+\end{align*}
+and:
+\begin{align*}
+\sum_{t \in [m]} r_t \cdot (x_i(r_t;b_{-i})-x_i(r_{t-1};b_{-i}))&=[r_{m} \cdot
+x_i(r_m;b_{-i})-r_{1} \cdot x_i(r_0;b_{-i})]-\sum_{t \in [m-1]} x_i(r_t;b_{-i})
+\cdot (r_{t+1}-r_{t})
+\\
+&=[b_i \cdot x_i(b)-r_1 \cdot x_i(0;b_{-i})]-\sum_{t \in [m-1]} x_i(r_t;b_{-i})
+\cdot (r_{t+1}-r_{t})
+\end{align*}
+Since $x$ is monotone we know the function $x_i(\ \cdot \ ; b_{-i})$ is
+nondecreasing and defined everywhere on the interval $[0,b_i]$ it follows $x_i(\
+\cdot \ ; b_{-i})$ is Riemann integrable over the interval $[0,b_i]$. Hence:
+$$\lim_{m \to \infty } \left(r_{m-1} \cdot x_i(b)-\sum_{t \in [m-1]} x_i(r_t;b_{-
+i}) \cdot (r_t-r_{t-1})\right)=b_i \cdot x_i(b)-\int_{0}^{b_i} x_i(w;b_{-i}) \ dw$$
+and:
+$$\lim_{m \to \infty } \left([b_i \cdot x_i(b)-r_1 \cdot x_i(0;b_{-i})]-\sum_{t \in
+[m-1]} x_i(r_t;b_{-i}) \cdot (r_{t+1}-r_{t})\right)=b_i \cdot x_i(b)-\int_{0}^{b_i}
+x_i(w;b_{-i}) \ dw.$$
+Since the first limit is a lower bound for $p_i(b)-p_i(0;b_{-i})$ and the second is
+an upper bound it follows that:
+$$p_i(b)-p_i(0;b_{-i})=b_i \cdot x_i(b)-\int_{0}^{b_i} x_i(w;b_{-i}) \ dw.$$
+Finally, imagine $v \in \mathbb{B}$ is the bid profile where $v_i=0$ and $v_{-i}
+=b_{-i}.$ Since we have assumed $p$ satisfies individual rationality for $x$, we
+know $0 \cdot x_i(0;b_{-i})-p_i(0;b_{-i}) =-p_i(0;b_{-i})\geq 0$, i.e. $p_i(0;b_{-
+i})=0$ as $p$ only outputs elements of $\mathbb{R}^N_{\geq 0}$.
+\\
+\\
+Therefore, if $x$ were to be implementable, it must be implemented by the payment
+rule $p: \mathbb{B} \to \mathbb{P}$ which $\forall b \in \mathbb{B}$ and $\forall i
+\in [N]$ sets:
+$$p_i(b)=b_i \cdot x_i(b)-\int_{0}^{b_i} x_i(w;b_{-i}) \ dw$$
+and no other. We will now show that this payment rule indeed implements $x$.
+\\
+\\
+Take arbitrary $v \in \mathbb{B}$, $i \in \mathbb{N}$, and $b \in \mathbb{B}$.
+Note:
+\begin{align*}
+v_i\cdot x_i(v_i;b_{-i})-p_i(v_i;b_{-i})&=v_i\cdot x_i(v_i;b_{-i})-v_i \cdot
+x_i(v_i;b_{-i})+\int_{0}^{v_i} x_i(w;b_{-i}) \ dw
+\\
+&=\int_{0}^{v_i} x_i(w;b_{-i}) \ dw
+\\
+&\geq 0
+\end{align*}
+since $x$ only outputs elements of $\mathbb{R}^N_{\geq 0}$. Thus $p$ satisfies
+individual rationality for $x$. Moreover, note:
+$$v_i\cdot x_i(v_i;b_{-i})-p_i(v_i;b_{-i})=\int_{0}^{v_i} x_i(w;b_{-i}) \ dw
+=\int_{b_i}^{v_i}x_i(w;b_{-i}) \ dw+\int_{0}^{b_i}x_i(w;b_{-i}) \ dw$$
+If $b_i \geq v_i$ then $\forall w \in [v_i,b_i]$ we know $x_i(b) \geq x_i(w;b_{-i})
+$ by monotonicity and so:
+$$\int_{v_i}^{b_i} x_i(b) \ dw \geq \int_{v_i}^{b_i} x_i(w; b_{-i}) \ dw.$$
+If $b_i \leq v_i$ then $\forall w \in [b_i,v_i]$ we know $x_i(b) \leq x_i(w;b_{-i})
+$ by monotonicity and so:
+$$\int_{b_i}^{v_i} x_i(b) \ dw \leq \int_{b_i}^{v_i} x_i(w; b_{-i}) \ dw.$$
+Hence in either case:
+$$\int_{b_i}^{v_i} x_i(w; b_{-i}) \ dw \geq \int_{b_i}^{v_i} x_i(b) \ dw=v_i\cdot
+x_i(b)-b_i\cdot x_i(b).$$
+Thus we have:
+\begin{align*}
+v_i\cdot x_i(v_i;b_{-i})-p_i(v_i;b_{-i})&=\int_{b_i}^{v_i}x_i(w;b_{-i}) \ dw+
+\int_{0}^{b_i}x_i(w;b_{-i}) \ dw
+\\
+&\geq v_i\cdot x_i(b)-b_i\cdot x_i(b)+\int_{0}^{b_i}x_i(w;b_{-i}) \ dw
+\\
+&=v_i\cdot x_i(b)-\left(b_i\cdot x_i(b)-\int_{0}^{b_i}x_i(w;b_{-i}) \ dw
+\right)
+\\
+&=v_i\cdot x_i(b)-p_i(b)
+\end{align*}
+, i.e. $p$ satisfies strategy proofness for $x$ and therefore $p$ implements $x$.
+$\square$
+\end{document}

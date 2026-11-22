@@ -1,0 +1,93 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{array}
+\usepackage{forest}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{}
+\date{}
+
+\begin{document}
+
+\section{Definitions}
+
+As usual, let $[N]=\{1,...,N\}$ be a finite set of agents. Imagine there is a finite set of possible states of the world $\Omega$, one of which must be chosen by the social planner/auctioneer. For instance $\Omega$ might consist of all the different ways to allocate a given collection of goods to everyone in $[N]$ (i.e., $\Omega$ is the set of feasible allocations). Alternatively $\Omega$ might consist of competing highway construction proposals that are under consideration.
+\\    
+\\
+Each agent $i \in [N]$ has a private valuation function $\nu_i: \Omega \to \mathbb{R}_{\geq 0}$ which says how much they value each state of the world. Note that agents may possess  quite subtle valuation functions. For instance in the case of auctions, $i$ might have preferences not only over the bundles of goods that they receive but also over how goods are allocated amongst everyone else.
+\\
+Let $\mathcal{B}_i=\mathbb{R}_{\geq 0}^{\Omega}$ be the set of all possible bid functions for $i \in [N]$.
+\\
+Let $\mathcal{B}=\prod_{i \in [N]} \mathcal{B}_i$ be the set of possible bid function profiles. Given $\beta \in \mathcal{B}$ and $i \in [N]$ we write $\beta_i: \Omega \to \mathbb{R}_{\geq 0}$ to denote $i$'s bid function in $\beta$. Similarly we write $\beta_{-i}$ to refer to the remaining components of $\beta$. Note that $\nu =(\nu_i)_{i \in [N]}\in \mathcal{B}$.
+\\
+Let $\mathbb{P}=\mathbb{R}_{\geq 0}^N$ be the set of possible payments for how much each agent pays the social planner.
+\\
+\\
+The social planner chooses a welfare-maximizing allocation rule $\omega: \mathcal{B} \to \Omega$ which is a function with the property that $\forall \beta \in \mathcal{B}$:
+$$\omega(\beta)\in \argmax_{\alpha \in \Omega} \sum_{i \in [N]} \beta_i(\alpha).$$
+We write $\omega(\beta_i;\beta'_{-i})$ to denote the output of $\omega$ when given an input bid function profile whose $i$th component is $\beta_i$ and whose other components are given by $\beta'_{-i}$. The social planner's goal is to find $\nu$ and realize the state $\omega(\nu)$. In the case of an auction for a single indivisible unit of a good this corresponds to giving the good to someone whose valuation is maximal. In the case of an auction for $k$ indivisible units of a good, each of which can only be given to one person, this corresponds to giving the good to $k$ agents whose valuations are greater than or equal to everyone else's valuations. However, observe  not every allocation rule is welfare-maximizing. For instance, consider allocating a single indivisible unit of a good to someone whose valuation is maximal only if this valuation is higher than some reserve price (and keeping the good otherwise). 
+\\
+\\
+A payment rule is a function $p: \mathcal{B} \to \mathbb{P}$. Again, we write $p(\beta_i;\beta'_{-i})$ to denote the output of $p$ when given an input bid function profile whose $i$th component is $\beta_i$ and whose other components are given by $\beta'_{-i}$. Additionally, we write $p_i(\beta)$ to denote the $i$th component of $p(\beta)$. For all $i \in [N]$ we take agent $i$'s payoff when everyone bids $\beta \in \mathcal{B}$ to be given by $\nu_i(\omega(\beta))-p_i(\beta)$. The point of the payment rule is to help the social planner find out $\nu \in \mathcal{B}$ so they may realize $\omega(\nu)$. 
+\\
+\\
+We say that a payment rule $p$ implements the welfare-maximizing allocation rule $\omega$ iff:
+\\
+1. (Strategy Proofness)- $\forall \nu \in \mathcal{B}, \forall i \in [N], \forall \beta \in \mathcal{B}, \nu_i(\omega(\nu_i;\beta_{-i}))-p_i(\nu_i;\beta_{-i}) \geq \nu_i(\omega(\beta))-p_i(\beta)$. 
+\\
+2. (Individual Rationality)- $\forall \nu \in \mathcal{B}, \forall i \in [N], \forall \beta \in \mathcal{B}, \nu_i(\omega(\nu_i;\beta_{-i}))-p_i(\nu_i;\beta_{-i}) \geq 0$.
+\\
+\\
+The Clarke pivot rule $p^\omega:\mathcal{B} \to \mathbb{P}$ for $\omega$ is defined by $\forall \beta \in \mathcal{B}$ setting:
+$$p^{\omega}_i(\beta)=\left(\max_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)\right)-\left(\sum_{j \in [N] \backslash \{i\}} \beta_j(\omega(\beta))\right)$$
+, i.e. agent $i$ pays the externality that the social planner estimates including $i$ will impose.
+
+
+\section{Theorems}
+\noindent\textbf{Theorem 20:} Given any welfare-maximizing allocation rule $\omega: \mathcal{B} \to \Omega$, the Clarke pivot rule $p^{\omega}: \mathcal{B} \to \mathbb{P}$ implements $\omega$. 
+\\
+\\
+\underline{Proof}
+\\
+Take arbitrary $\nu \in \mathcal{B}$, $i \in [N]$, and $\beta \in \mathcal{B}$. Also take  arbitrary $\alpha^* \in \argmax_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)$. Note that we have:
+\begin{align*}
+\nu_i(\omega(\nu_i;\beta_{-i}))-p^{\omega}_i(\nu_i;\beta_{-i})&=\nu_i(\omega(\nu_i;\beta_{-i}))-\left[\left(\max_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)\right)-\left(\sum_{j \in [N] \backslash \{i\}} \beta_j(\omega(\nu_i;\beta_{-i}))\right)\right]
+\\
+&=\left(\nu_i(\omega(\nu_i;\beta_{-i}))+\sum_{j \in [N] \backslash \{i\}} \beta_j(\omega(\nu_i;\beta_{-i}))\right)-\left(\max_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)\right)
+\\
+&=\left[\max_{\alpha \in \Omega} \left(\nu_i(\alpha)+\sum_{j \in [N] \backslash\{i\}} \beta_j(\alpha)\right)\right]-\left(\max_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)\right)
+\\
+&\geq \left(\nu_i(\alpha^*)+\sum_{j \in [N] \backslash\{i\}} \beta_j(\alpha^*)\right)-\left(\max_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)\right)
+\\
+&=\left(\nu_i(\alpha^*)+\sum_{j \in [N] \backslash\{i\}} \beta_j(\alpha^*)\right)-\left(\sum_{j \in [N] \backslash\{i\}} \beta_j(\alpha^*)\right)
+\\
+&=\nu_i(\alpha^*) \geq 0
+\end{align*}
+, i.e. $p^\omega$ satisfies individual rationality for $\omega$. 
+\\
+\\
+Next observe:
+\begin{align*}
+\nu_i(\omega(\nu_i;\beta_{-i}))-p^{\omega}_i(\nu_i;\beta_{-i})&=\nu_i(\omega(\nu_i;\beta_{-i}))-\left[\left(\max_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)\right)-\left(\sum_{j \in [N] \backslash \{i\}} \beta_j(\omega(\nu_i;\beta_{-i}))\right)\right]	
+\\
+&=\left(\nu_i(\omega(\nu_i;\beta_{-i}))+\sum_{j \in [N] \backslash \{i\}} \beta_j(\omega(\nu_i;\beta_{-i}))\right)-\left(\max_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)\right)
+\\
+&=\left[\max_{\alpha \in \Omega} \left(\nu_i(\alpha)+\sum_{j \in [N] \backslash\{i\}} \beta_j(\alpha)\right)\right]-\left(\max_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)\right)
+\\
+&\geq \left(\nu_i(\omega(\beta))+\sum_{j \in [N]\backslash\{i\}} \beta_j(\omega(\beta))\right)-\left(\max_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)\right)
+\\
+&=\nu_i(\omega(\beta))-\left[\left(\max_{\alpha \in \Omega} \sum_{j \in [N] \backslash \{i\}} \beta_j(\alpha)\right)-\left(\sum_{j \in [N] \backslash \{i\}} \beta_j(\omega(\beta))\right)\right]	
+\\
+&=\nu_i(\omega(\beta))-p^{\omega}_i(\beta)
+\end{align*}
+, i.e. $p^\omega$ satisfies strategy proofness for $\omega$. $\square$
+\end{document}

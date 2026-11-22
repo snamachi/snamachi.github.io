@@ -1,0 +1,116 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{array}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[margin=1in]{geometry}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\title{}
+\date{}
+\begin{document}
+\section{Definitions}
+Let $[N]=\{1,...,N\}$ be a finite set of agents, $X$ be a set of candidates/prizes,
+and $\Theta$ be the set of all strict linear orders over the set $X$.
+\\
+\\
+A voting system is a function $v: \Theta^N \to X$. We think of $v$ as taking in
+strict linear order profiles $\theta=(\succ_i)_{i \in [N]} \in \Theta^N$ amongst
+the agents in $[N]$ and outputting a winner from $X$.
+\\
+We will write $\theta_i$ to denote the $i$th component of $\theta$ and $\theta_{-i}
+$ to denote the rest of the components.
+\\
+Similarly, we write $v(\theta_i;\theta'_{-i})$ to denote the output of the voting
+system $v$ when the $i$th component of its input is $\theta_i$ and the rest of the
+input's components are given by $\theta'_{-i}$.
+\\
+\\
+Given $\theta=(\succ_i)_{i \in [N]} \in \Theta^N$ we define $\hat{\theta}_i$ to be
+the top candidate in $\theta_i$.
+\\
+Additionally, given $x \in X$, we define $L_i(x,\theta)$ to be the set of
+candidates ranked below $x$ in $\theta_i$. In other words $L_i(x,\theta)=\{y \in
+X : x \succ_i y\}$.
+\\
+Finally, given nonempty $S \subseteq X$, we define $\theta^{S} \in \Theta^N$ so for each $i
+\in [N]$ we have that $\theta^S_i$ is the ranking obtained forcing every candidate
+in $S$ to be ranked above the candidates in $X \backslash S$ all the while
+preserving the relative ranking between candidates in $S$ as well as the relative
+rankings between candidates in $X \backslash S$.
+\\
+\\
+A voting system $v$ is surjective iff $\forall x \in X, \exists \theta \in
+\Theta^N$ such that $v(\theta)=x$.
+\\
+A voting system $v$ is strategy-proof iff $\forall \theta,\theta' \in \Theta^N$
+where $\theta=(\succ_i)_{i \in[N]}$ we have $\forall i \in [N]$ that $v(\theta_i;
+\theta'_{-i}) \succ_i v(\theta')$ or $v(\theta_i; \theta'_{-i}) = v(\theta')$.
+\\
+A voting system $v$ is a dictatorship iff there is a voter $i^* \in [N]$ such that
+$\forall \theta=(\succ_i)_{i \in [N]} \in \Theta^N$ we have $v(\theta)=\hat{\theta}
+_{i^*}$, i.e. $v$ always outputs the top candidate ranked by voter $i^*$.
+\section{Theorems}
+\textbf{Theorem 15:} Suppose $v: \Theta^N \to X$ is a strategy-proof voting system
+and $\theta, \theta' \in \Theta^N$ are two profiles such that $\forall i \in [N],
+L_i(x,\theta) \subseteq L_i(x,\theta')$. If $v(\theta)=x$ then $v(\theta')=x$.
+\\
+\\
+\underline{Proof}
+\\
+We will represent $\theta$ and $\theta'$ by $(\succ_i)_{i \in [N]}$ and $
+\theta'=(\succ'_i)_{i \in [N]}$ respectively. Note it suffices to prove the result
+when there is exactly one agent $j\in [N]$ such that $\theta_j \neq \theta'_{j}$ as
+we can then extend the result to arbitrarily many agents by changing $\theta$ one
+agent at a time. So fix this $j \in [N]$. Suppose towards a contradiction
+$v(\theta)=x$ and $v(\theta')=y \neq x$. By strategy-proofness it must be that
+$v(\theta)=v(\theta_j; \theta'_{-j}) \succ_j v(\theta')$, i.e. $x \succ_j y$ and so $y \in
+L_j(x,\theta)$. Now note, again by strategy-proofness, that $v(\theta') =v(\theta'_j; \theta_{-
+j}) \succ'_j v(\theta)$ i.e. $y \succ'_j x$ and so $y \notin L_j(x,
+\theta')$. Contradiction. Hence, we can conclude if $v(\theta)=x$ then $v(\theta')=x$ (and contrapositively, if $v(\theta') \neq x$ then $v(\theta) \neq x$). $\square$
+\\
+\\
+\textbf{Theorem 16:} Suppose $v: \Theta^N \to X$ is a surjective and strategy-proof voting system and $S\subseteq X$ is nonempty. Then $\forall \theta \in \Theta^N$  we have that $v(\theta^S) \in S$. 
+\\
+\\
+\underline{Proof}
+\\
+STAC $v(\theta^S)=x \notin S$. Take arbitrary $s \in S$.  Note $\forall i \in [N]$ that $L_i(x,{\theta^S}) \subseteq L_i(x,({\theta^S})^{\{s\}})$  and so Theorem 15 yields $v((\theta^S)^{\{s\}})=x$. On the other hand, by surjectivity, we are guaranteed some profile $\tau \in \Theta^N$ so that $v(\tau)=s$. Namely $\forall i \in [N]$ we have $L_i(s,\tau) \subseteq L_i(s,({\theta^S})^{\{s\}})$ and so Theorem 15 yields $v((\theta^S)^{\{s\}})=s$. Contradiction. Thus $v(\theta^S) \in S$. $\square$
+\\
+\\
+\textbf{Theorem 17:} Suppose $v: \Theta^N \to X$ is a surjective and strategy-proof
+voting system. For all $a,b \in X$ and $\theta \in \Theta^N$ define
+$a\succeq_{v,\theta} b$ to hold iff $a = b$ or otherwise $v(\theta^{\{a,b\}})=a$.
+Then $\succeq_{v,\theta}$ is a weak linear order and so we can define a social
+choice rule $f_v: \Theta^N \to \overline{\Theta}$ by setting
+$f_v(\theta)=\succeq_{v,\theta}$.
+\\
+\\
+\underline{Proof}
+\\
+Fix $\theta \in \Theta^N$. We will first show $\succeq_{v,\theta}$ is complete. Take arbitrary $a,b \in X$. If $a=b$ then we are done since $a \succeq_{v,\theta} b$. So suppose $a \neq b$. By Theorem 16 we know $v(\theta^{\{a,b\}})\in \{a,b\}$. Hence we can immediately conclude  either $a \succeq_{v,\theta} b$ or $b \succeq_{v,\theta} a$ as desired.
+\\
+\\
+Now we will show $\succeq_{v,\theta}$ is transitive. Take arbitrary $a,b,c \in X$ such that $a \succeq_{v,\theta} b$ and $b \succeq_{v,\theta} c$. If $a,b,c$ are not all distinct it easily follows that $a \succeq_{v,\theta} c$. So suppose $a,b,c$ are all distinct. Consider the profile $\theta^{\{a,b,c\}} \in \Theta^N$. Note $\forall i \in [N]$ we have $L_i(b,\theta^{\{a,b,c\}}) \subseteq L_i(b,\theta^{\{a,b\}})$ and $L_i(c,\theta^{\{a,b,c\}}) \subseteq L_i(c,\theta^{\{b,c\}})$. Since $v(\theta^{\{a,b\}}) =a\neq b$ and $v(\theta^{\{b,c\}}) =b\neq c$, Theorem 15 yields that  $v(\theta^{\{a,b,c\}}) \neq b$ and $v(\theta^{\{a,b,c\}}) \neq c$. By Theorem 16 we know $v(\theta^{\{a,b,c\}}) \in \{a,b,c\}$. Hence $v(\theta^{\{a,b,c\}})=a$. Now note $\forall i \in [N]$ that $L_i(a,\theta^{\{a,b,c\}}) \subseteq L_i(a,\theta^{\{a,c\}})$ and so Theorem 15 yields $v(\theta^{\{a,c\}})=a$. Thus we can conclude $a \succeq_{v,\theta} c$ as desired. $\square$
+\\
+\\
+\textbf{Theorem 18:} Suppose $|X|>2$, i.e. there are at least 3 candidates. Any
+voting system $v: \Theta^N \to X$ which is surjective and strategy-proof must also
+be a dictatorship.
+\\
+\\
+\underline{Proof}
+\\
+By Theorem 17, the function $f_v: \Theta^N \to \overline{\Theta}$ which $\forall \theta \in \Theta^N$ sets $f_v(\theta)=\succeq_{v,\theta}$ is a well-defined social choice rule. Take arbitrary distinct candidates $a,b \in X$ and suppose $\theta=(\succ_i)_{i \in [N]} \in \Theta^N$ is a profile such that $\forall i \in [N]$ we have $a \succ_i b$. Note $\theta^{\{a,b\}}=(\theta^{\{a,b\}})^{\{a\}}$. By Theorem 16 we know $v((\theta^{\{a,b\}})^{\{a\}}) \in \{a\}$. Hence $v(\theta^{\{a,b\}})=v((\theta^{\{a,b\}})^{\{a\}})=a$ and so $a \succ_{v,\theta} b$ (as $v(\theta^{\{a,b\}})\neq b$). Thus we have shown that $f_v$ satisfies unanimity as $a$ and $b$ were arbitrary. 
+\\
+\\
+Again take arbitrary distinct candidates $a,b \in X$ but suppose we have profiles $\theta, \theta' \in \Theta^N$ where $\theta=(\succ_i)_{i \in [N]}$ and $\theta'=(\succ'_i)_{i \in [N]}$ so that $\forall i \in [N], a \succ_i b \leftrightarrow a \succ'_i b$.  By Theorem 16 we know $v(\theta^{\{a,b\}}),v((\theta')^{\{a,b\}}) \in \{a,b\}$. Further note that $\forall i \in [N]$ we have $L_i(a,\theta^{\{a,b\}})=L_i(a,(\theta')^{\{a,b\}})$ and  $L_i(b,\theta^{\{a,b\}})=L_i(b,(\theta')^{\{a,b\}})$. Hence by Theorem 15, $v(\theta^{\{a,b\}})=a$ iff $v((\theta')^{\{a,b\}})=a$ and $v(\theta^{\{a,b\}})=b$ iff $v((\theta')^{\{a,b\}})=b$, i.e. $a \succeq_{v,\theta} b \leftrightarrow a \succeq_{v,\theta'} b $. Thus we have shown that $f_v$ satisfies binary independence as $a$ and $b$ were arbitrary.
+\\
+\\
+By Arrow's impossibility theorem (Theorem 14), this means $f_v$ must be a dictatorship! Hence there is a voter $i^* \in [N]$ such that $\forall a,b \in X$ and $\forall \tau \in \Theta^N$ where $\tau=(\succ_{i})_{i \in [N]}$ we have  $a \succ_{i^*} b \leftrightarrow a \succ_{v,\tau} b$. STAC there exists $\theta \in \Theta^N$ such that $v(\theta)=x \neq \hat{\theta}_{i^*}$. Since $i^*$ strictly prefers $\hat{\theta}_{i^*}$ to $x$ in $\theta$, it follows that $\hat{\theta}_{i^*} \succ_{v, \theta} x$. But note $\forall i \in [N]$ that $L_i(x,\theta) \subseteq L_i(x,\theta^{\{x,\hat{\theta}_{i^*}\}})$ and so Theorem 15 yields $v(\theta^{\{x,\hat{\theta}_{i^*}\}})=x \neq \hat{\theta}_{i^*} $, i.e. $\hat{\theta}_{i^*} \not \succ_{v, \theta} x$. Contradiction. Thus, $v$ is a dictatorship. $\square$
+ 
+\section{Potential Projects}
+While we spent much of this week discussing how to aggregate preferences, one might also be curious how to aggregate information/credences. This is a highly technical area of social choice theory, but even an overview of its results + some examples would suffice for a final project.
+\end{document}

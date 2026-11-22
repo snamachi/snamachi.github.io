@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{multirow}
+\usepackage{forest}
+
+\begin{document}
+
+\noindent
+\textbf{Name:}\underline{\hspace{6cm}} \hfill \textbf{Date:}\underline{\hspace{3cm}}
+
+\vspace{0.5em}
+\noindent\textit{Side 1 of 2}
+
+\vspace{1.5em}
+\noindent\textbf{1. Two drivers play a game called \emph{Swerve--Straight--Crash}. Each simultaneously chooses to \emph{Swerve}, to drive \emph{Straight}, or to \emph{Crash}. The payoff matrix is given below; in each cell the first entry is Player~1's (the row player's) payoff and the second entry is Player~2's (the column player's) payoff.}
+
+\vspace{1em}
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{cc|c|c|c|}
+\multicolumn{2}{c}{} & \multicolumn{3}{c}{Player 2} \\
+\multicolumn{2}{c}{} & \multicolumn{1}{c}{Swerve} & \multicolumn{1}{c}{Straight} & \multicolumn{1}{c}{Crash} \\
+\cline{3-5}
+\multirow{3}{*}{Player 1} & Swerve & $(0,\,0)$ & $(-1,\,+1)$ & $(-2,\,-10)$ \\
+\cline{3-5}
+ & Straight & $(+1,\,-1)$ & $(-3,\,-3)$ & $(-10,\,-10)$ \\
+\cline{3-5}
+ & Crash & $(-10,\,-2)$ & $(-10,\,-10)$ & $(-10,\,-10)$ \\
+\cline{3-5}
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+\noindent\textbf{(a) Find all pure-strategy Nash equilibria.}
+
+\vfill
+
+\noindent\textbf{(b) Find the mixed-strategy Nash equilibrium.}
+
+\vfill
+
+\noindent\textbf{(c) Which actions are rationalizable?}
+
+\vfill\newpage
+
+\noindent\textit{Side 2 of 2}
+
+\vspace{1.5em}
+\noindent\textbf{2. Do you find rationalizability or Nash equilibrium to be a more plausible solution concept? Please justify your answer.}
+
+\vfill
+
+\end{document}

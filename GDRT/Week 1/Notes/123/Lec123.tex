@@ -1,0 +1,129 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{}
+\date{}
+
+\begin{document}
+
+\section{Definitions}
+
+$X$ is the set of all possible prizes. We take $X$ to be finite throughout.
+\\
+A menu $M$ over $X$ is simply a non-empty subset of $X$, i.e. $M \in 2^{X} \backslash \{\varnothing\}$.
+\\
+We denote the set of all menus over $X$ by $\mathcal{M}(X)$.
+\\ 
+A choice correspondence is a function $C: \mathcal{M}(X) \to \mathcal{M}(X)$ s.t. $\forall M \in \mathcal{M}(X)$ we have $C(M) \subseteq M$.
+\\
+$C$ satisfies the weak axiom of revealed preference (or WARP) iff it satisfies two conditions called Sen's $\alpha$ and $\beta$ where:
+\\
+$C$ satisfies $\alpha$ iff $\forall M_1,M_2 \in \mathcal{M}(X)$ s.t. $M_1 \subseteq M_2$ if $x \in M_1$ and $x \in C(M_2)$ then $x \in C(M_1)$.
+\\
+$C$ satisfies $\beta$ iff $\forall M_1,M_2 \in \mathcal{M}(X)$ s.t. $M_1 \subseteq M_2$ if $x,y \in C(M_1)$ and $x \in C(M_2)$ then $y \in C(M_2)$.
+\\
+A preference relation $\succeq$ is a binary relation over $X$.
+\\
+We write $a \sim b$ to mean that $a \succeq b$ and $b \succeq a$. 
+\\
+We also write $a \succ b$ to mean that while $a \succeq b$ holds, $b \not \succeq a$.
+\\
+$\succeq$ is complete iff $\forall x,y \in X$ either $x \succeq y$ or $y \succeq x$. 
+\\
+$\succeq$ is transitive iff $\forall x,y,z \in X$ if $x \succeq y$ and  $y \succeq z$ then $x \succeq z$.
+\\
+If $\succeq$ is complete then it is also reflexive, i.e. $\forall x \in X, x \succeq x$.
+\\
+A utility function is any function $u: X \to \mathbb{R}$.
+
+\section{Theorems}
+\textbf{Theorem 1:} If a choice correspondence $C: \mathcal{M}(X) \to \mathcal{M}(X)$ satisfies WARP then there exists a complete and transitive preference relation $\succeq_C$ over $X$ s.t. $\forall M \in \mathcal{M}(X)$:
+$$C(M)=\{x \in M : \forall y \in M, x \succeq_C y\}.$$
+In particular, $\succeq_C$ is unique.  
+\\
+\\
+\underline{Proof}
+\\
+Consider the preference relation $\succeq_C$ over $X$ such that $\forall a,b \in X$ we have $a \succeq_C b \leftrightarrow a \in C(\{a,b\})$. Note $\forall a,b \in X$ we have $C(\{a,b\}) \neq \varnothing$ and $C(\{a,b\}) \subseteq \{a,b\}$, i.e. either $a \in C(\{a,b\})$ or $b \in C(\{a,b\})$. Hence, $\succeq_C$ is complete as this means either $a \succeq_C b$ or $b \succeq_C a$. Now STAC $\succeq_C$ is not transitive. Then $\exists a,b,c \in X$ so that $a \succeq_C b$ and $b \succeq_C c$ but $a \not \succeq_C c$, i.e.:
+$$a \in C(\{a,b\})$$
+$$b \in C(\{b,c\})$$
+$$a \notin C(\{a,c\})$$
+Note $a \notin C(\{a,b,c\})$ as otherwise Sen's $\alpha$ implies $a \in C(\{a,c\})$. Also $b \notin C(\{a,b,c\})$ as otherwise Sen's $\alpha$ implies $b \in C(\{a,b\})$ which together with Sen's $\beta$ implies $a \in C(\{a,b,c\})$. Finally $c \notin C(\{a,b,c\})$ as otherwise Sen's $\alpha$ implies $c \in C(\{b,c\})$ which together with Sen's $\beta$ implies $b \in C(\{a,b,c\})$. Hence, $C(\{a,b,c\})=\varnothing$. Contradiction. Thus, $\succeq_C$ is transitive. 
+\\
+\\
+Now we show $\forall M \in \mathcal{M}(X)$ that $C(M)=\{x \in M : \forall y \in M, x \succeq_C y\}.$ Take arbitrary $a \in M$ so that $\forall y \in M$ we have $a \succeq_C y$, i.e. $a \in C(\{a,y\})$. STAC $a \notin C(M)$. Since $C(M)\neq \varnothing$ we know there exists some $b \in M$ such that $b \in C(M)$. Since $\{a,b\} \subseteq M$, by Sen's $\alpha$ we know that $b \in C(\{a,b\})$. Additionally, since $a \in C(\{a,b\})$, Sen's $\beta$ implies $a \in C(M)$. Contradiction. Thus $a \in C(M)$. Now take arbitrary $a \in C(M)$. Since $\forall y \in M$ we know $\{a,y\} \subseteq M$,  Sen's $\alpha$ implies that $a \in C(\{a,y\})$, i.e. $a \succeq_C y$. Hence $\forall y \in M$, $a \succeq_C y$ as desired.   
+\\
+\\
+Finally STAC $\forall M \in \mathcal{M}(X), \ C(M)=\{x \in M : \forall y \in M, x \succeq' y\}$ for some other complete and transitive preference relation $\succeq'$. Then there exist $a,b \in X$ such that $a \succeq_C b$ but $a \not \succeq' b$ or $a \succeq' b$ but $a \not \succeq_C b$. In either case, this means both that $a \in C(\{a,b\})$ and $a \notin C(\{a,b\})$. Contradiction. Thus $\succeq_C$ is unique. $\square$
+\\
+\\
+\textbf{Theorem 2:} If a preference relation $\succeq$ over $X$ is transitive and complete then there exists a choice correspondence $C_{\succeq}: \mathcal{M}(X) \to \mathcal{M}(X)$ satisfying WARP s.t. $\forall a,b \in X$:
+$$a \succeq b \leftrightarrow a \in C_{\succeq}(\{a,b\})$$
+In particular, $C_{\succeq}$ is unique.  
+\\
+\\
+\underline{Proof}
+\\
+Construct $C_{\succeq}$ by $\forall M \in \mathcal{M}(X)$ setting $C_{\succeq}(M)=\{x \in M : \forall y \in M, x \succeq y\}.$ Fix arbitrary $M \in \mathcal{M}(X)$. Note $C_{\succeq}(M) \subseteq M$ by construction. STAC $C_{\succeq}(M)=\varnothing$. Then $\forall x \in M$, $\exists y \in M$ such that $x \not \succeq y$ and so $y \ \succ x$ by completeness. Thus we can construct an infinite sequence $a_1,a_2,a_3... \in X$ such that $a_1 \prec a_2 \prec a_3...$. Since $X$ is finite there exist naturals $m<n$ so that $a_m=a_n$, i.e. $a_m \sim a_n$ by reflexivity. However, by transitivity, $a_m \prec a_n$. Contradiction. Thus, $C_{\succeq}(M) \neq \varnothing$ and so $C_{\succeq}$ is a well defined choice correspondence. Now take $M_1,M_2 \in \mathcal{M}(X)$ with $M_1 \subseteq M_2$. Suppose $a \in M_1$ and $a \in C_{\succeq}(M_2)$.  Since $\forall y \in M_1$ we know $y \in M_2$ it must be that $a \succeq y$. Thus $a \in C_{\succeq}(M_1)$ and so $C_{\succeq}$ satisfies Sen's $\alpha$.  Now suppose $a,b \in C_{\succeq}(M_1)$ and $a \in C_{\succeq}(M_2)$. Since $a \sim b$ and $\forall y \in M_2$ we know $a \succeq y$, it follows by transitivity that $b \succeq y$. Thus $b \in C_{\succeq}(M_2)$ and so $C_{\succeq}$ satisfies Sen's $\beta$. 
+\\
+\\
+Now we show $\forall a,b \in X$ that $a \succeq b \leftrightarrow a \in C_{\succeq}(\{a,b\})$. So suppose $a \succeq b$. Since $a \succeq a$ by reflexivity, this means $\forall y \in \{a,b\}$ that $a \succeq y$, i.e. $a \in C_{\succeq}(\{a,b\})$. Next suppose $a \in C_{\succeq}(\{a,b\})$. Then, by construction, we must have $a \succeq b$ as desired. 
+\\
+\\
+\noindent Finally STAC $\forall a,b \in X, a \succeq b \leftrightarrow a \in C'(\{a,b\})$ for some other choice correspondence $C'$ satisfying WARP. By Theorem 1, there exists a unique complete and transitive $\succeq_{C'}$ such that $\forall M \in \mathcal{M}(X)$ we have
+$C'(M)=\{x \in M : \forall y \in M, x \succeq_{C'}y\}.$ However, since $C_{\succeq}$ and $C'$ are distinct, this is only possible if $\succeq$ and $\succeq_{C'}$ are distinct. But $\forall a,b \in X$ we know $a \succeq_{C'} b \leftrightarrow a \in C'(\{a,b\})$ (by construction) and therefore $a\succeq b \leftrightarrow a \succeq_{C'} b$. Contradiction. Thus $C_{\succeq}$ is unique.  $\square$
+\\
+\\
+\textbf{Theorem 3:} For any choice correspondence $C: \mathcal{M}(X) \to \mathcal{M}(X)$ satisfying WARP we have that $C=C_{\succeq_C}$.
+\\
+\\
+\underline{Proof}
+\\
+Note in the proof of Theorem 1 that $\forall a,b \in X$ we have $a \succeq_C b \leftrightarrow a \in C(\{a,b\})$. By Theorem 2, $C_{\succeq_C}$ is the unique choice correspondence satisfying WARP such that $\forall a,b \in X$ we have $a \succeq_C b \leftrightarrow a \in C_{\succeq_C}(\{a,b\})$. Hence, $C=C_{\succeq_C}$. $\square$
+\\
+\\
+\textbf{Theorem 4:} For any complete and transitive preference relation $\succeq$ over $X$, we have that $\succeq=\succeq_{C_{\succeq}}$.
+\\
+\\
+\underline{Proof}
+\\
+Note in the proof Theorem 2 that $\forall M \in \mathcal{M}(X)$ we have $C_{\succeq}(M)=\{x \in M : \forall y \in M, x \succeq y\}.$ By Theorem 1, $\succeq_{C_{\succeq}}$ is the unique complete and transitive preference relation over $X$ such that $\forall M \in \mathcal{M}(X)$ we have $C_{\succeq}(M)=\{x \in M : \forall y \in M, x \succeq_{C_{\succeq}} y\}$. Hence, $\succeq=\succeq_{C_{\succeq}}$. $\square$
+\\
+\\
+\textbf{Fact:} Given two utility functions $u,u':X \to \mathbb{R}$ such that $\forall a,b\in X$: 
+$$u(a) \geq u(b) \leftrightarrow u'(a) \geq u'(b)$$
+, there exists an increasing function $T:\mathbb{R} \to \mathbb{R}$ such that $u'=T \circ u$.
+\\
+\\
+\textbf{Theorem 5:} A preference relation $\succeq$ over $X$ is complete and transitive iff there exists a utility function $u: X \to \mathbb{R}$ such that $\forall a,b \in X$:
+$$ a\succeq b \leftrightarrow u(a) \geq u(b).$$
+In particular, $u$ is unique up to composition with an increasing function $T:\mathbb{R} \to \mathbb{R}$.
+\\
+\\
+\underline{Proof}
+\\
+The if direction follows immediately from the completeness and transitivity of $\geq$ over $\mathbb{R}$. For the only if direction suppose $\succeq$ is a complete and transitive preference relation over $X$. Let $f: X \to \mathbb{R}_{>0}$ be any function. Define $u: X \to \mathbb{R}$ so that $\forall x \in X$ we have $u(x)=\sum_{y \in X : x \succeq y} f(y)$. Take arbitrary $a,b \in X$. If $a \succeq b$ then note $\{y \in X : b \succeq y\} \subseteq \{y \in X : a \succeq y\}$ by transitivity. Thus, $u(a) \geq u(b)$. Now suppose $a \not \succeq b$ and so $b \succ a$ (by completeness). Then $\{y \in X : a \succeq y\} \subset \{y \in X : b \succeq y\}$ by transitivity and the fact $b \succeq b$ but $a \not \succeq b$. Thus $u(a)<u(b)$ and so $u(a) \not \geq u(b)$. Next suppose $\forall a,b \in X$ that $a\succeq b \leftrightarrow u'(a) \geq u'(b)$ for some other utility function $u'$. Then note $\forall a,b \in X$ that $u(a) \geq u(b) \leftrightarrow u'(a) \geq u'(b)$. Namely, this holds only if $u'=T \circ u$ for some increasing function $T: \mathbb{R} \to \mathbb{R}$. It is easy to check also that for any increasing function $T: \mathbb{R} \to \mathbb{R}$ that $a \succeq b \leftrightarrow (T\circ u)(a) \geq (T\circ u)(b)$. $\square$
+\\
+\\
+\textbf{Theorem 6:} A choice correspondence $C:\mathcal{M}(X) \to \mathcal{M}(X)$ satisfies WARP iff there exists a utility function $u: X \to \mathbb{R}$ such that $\forall M \in \mathcal{M}(X)$:
+$$C(M)=\argmax_{x \in M} u.$$
+In particular, $u$ is unique up to composition with an increasing function $T:\mathbb{R} \to \mathbb{R}$.
+\\
+\\
+\underline{Proof}
+\\
+The if direction will be left as a homework problem. For the only if direction suppose we have a choice correspondence $C:\mathcal{M}(X) \to \mathcal{M}(X)$ satisfying WARP. By Theorem 3, we know $C=C_{\succeq_C}$. As $\succeq_C$ is complete and transitive, Theorem 5 implies there exists a utility function $u: X \to \mathbb{R}$ such that $\forall a,b \in X$ we have $a \succeq_C b \leftrightarrow u(a) \geq u(b)$. Hence $\forall M \in \mathcal{M}(X)$: 
+$$C(M)=C_{\succeq_C}(M)=\{x \in M : \forall y \in M,  x \succeq_C y\}=\{x \in M : \forall y \in M,  u(x) \geq u(y)\}=\argmax_{x \in M} u.$$
+\noindent Next suppose $\forall M \in \mathcal{M}(X)$ that $C(M)=\argmax_{x \in M} u'$ for some other utility function $u'$. Note $\forall a,b \in X$ then that $\argmax_{x \in \{a,b\}} u=\argmax_{x \in \{a,b\}} u'$, i.e. $u(a) \geq u(b) \leftrightarrow u'(a) \geq u'(b)$. Namely, this holds only if $u'=T \circ u$ for some increasing function $T: \mathbb{R} \to \mathbb{R}$. It easy to check also for any increasing function $T: \mathbb{R} \to \mathbb{R}$ that $\forall M \in \mathcal{M}(X)$ we have $C(M)=\argmax_{x \in M} T \circ u$. $\square$
+
+\end{document}

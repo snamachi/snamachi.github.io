@@ -1,0 +1,37 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{array}
+\usepackage{forest}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{}
+\date{}
+
+\begin{document}
+
+\section{Two Candidate Social Choice Rule}
+Show that if there are only two candidates and at least two voters, Arrow's theorem does not apply. In other words, please find a social choice rule which satisfies unanimity, binary independence, and non-dictatorship when $|X|=2$ and $N \geq 2$. Be sure to justify your answer.
+
+\section{Two Candidate Voting System}
+Show that if there are only two candidates and least two voters, the Gibbard-Satterthwaite theorem does not apply. In other words, please find a voting system which satisfies surjectivity, strategy-proofness, and non-dictatorship when $|X|=2$ and $N \geq 2$. Be sure to justify your answer.
+
+\section{Real Life Condorcet Paradox}
+Suppose Alice, Bob, and Charlie live in houses along the edge of a circular lake. They are all deciding where to build a nice community pavilion, also along the edge of the lake. There are three potential locations for the pavilion. Everyone's preference is to have the pavilion be as close to their house as possible. Illustrate how a Condorcet paradox may arise in this situation regarding Alice, Bob, and Charlie's preferences over the proposed pavilion locations.  
+
+\section{Single Peaked Preferences}
+Suppose David, Eve, and Fred live in houses along the edge of a straight road. They are all deciding where to build a nice community barbecue, also along the edge of the road. There are three potential locations for the barbecue. Everyone's preference is to have the barbecue be as close to their house as possible. Prove that it is impossible for a Condorcet paradox to arise in this situation regarding David, Eve, and Fred's preferences over the proposed barbecue locations.   
+
+\section{Randomized Election}
+Fix $X$ to be a set of at least 3 candidates and $\forall i \in [N]$ let $\tau \in \Theta^N$ be a profile which captures agents' true ranking of the candidates in $X$. Consider a normal form game $G=((A_i)_{i \in [N]},(u_i)_{i \in [N]})$ where each $A_i=\Theta$ and $\forall \theta \in \Theta^N=A$ we have $u_i(\theta)=\sum_{x \in X} |L_i(x,\tau)| \cdot \frac{|\{j \in [N]:\hat{\theta}_j=x\}|}{N}$. We can interpret this game as uniformly picking an agent at random and outputting their reported top ranked candidate as the winner so that player $i$'s payoff is just the expected number of candidates they will like less than the winner. Is truthful reporting (i.e. playing $\tau_i$) an always best response for each player $i \in [N]$? Justify your answer. 
+
+
+\end{document}

@@ -1,0 +1,186 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{array}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{}
+\date{}
+
+\begin{document}
+
+\section{Definitions}
+
+A normal form game is a tuple $G=((A_i)_{i \in [N]},(u_i)_{i \in [N]})$ where:
+\\
+$[N]=\{1,...,N\}$ is the set of all agents/players. We take $N$ to be finite throughout.
+\\
+For each agent $i \in [N]$, we have a set of actions $A_i$. We take each $A_i$ to be finite as well.
+\\
+The set $A=\prod_{i \in [N]} A_i=A_1 \times ... \times A_N$ denotes the set of all action profiles, i.e. this is the set of all $N$-tuples whose $i$th component is an element of $A_i$.  
+\\
+Each agent $i \in [N]$ has a utility function $u_i:A \to \mathbb{R}$ from action profiles to payoffs.
+\\
+\\
+The set $A_{-i}=\prod_{j \in [N]\backslash\{i\}} A_j$ denotes the set of all action profiles with agent $i$'s action removed.
+\\
+Given an action profile $a \in A$ and agent $i \in [N]$, we write $a_i \in A_i$ to mean the $i$th component of $a$. 
+\\
+Similarly, we write $a_{-i}\in A_{-i}$ to denote the $(N-1)$-tuple where $a_i$ has been removed from $a$.
+\\
+Next, given $a_i\in A_i$ and $a'_{-i} \in A_{-i}$, we write $u_i(a_i;a'_{-i})$ as shorthand for $u_i(z)$ where $z$ is the action profile whose $i$th component is $a_i \in A_i$ and whose remaining components are given by $a'_{-i} \in A_{-i}$.
+\\
+\\
+For a finite set $S$, we write $\Delta(S)$ to denote the set of all probability distributions over $S$. 
+\\
+We can think of a distribution $p \in \Delta(S)$ as a function $p: S \to [0,1]$ s.t. $\sum_{x \in S} p(x)=1$.  
+\\
+Now, given $a_i \in A_i$ and beliefs $b_i \in \Delta(A_{-i})$, we write $u_i(a_i;b_i)$ as shorthand to mean:
+$$u_i(a_i;b_i)=\sum_{a'_{-i} \in A_{-i}} u_i(a_i;a'_{-i}) \cdot b_i(a'_{-i}).$$ 
+\\
+An always best response (ABR) for $i$ is an action $a^*_i \in A_i$ s.t.: 
+$$\forall b_i \in \Delta(A_{-i}), a^*_i \in \argmax_{a_i \in A_i} u_i(\ \cdot\ ; b_i).$$
+A never best response (NBR) for $i$ is an action $a^*_i \in A_i$ s.t.: 
+$$\forall b_i \in \Delta(A_{-i}), a^*_i \notin \argmax_{a_i \in A_i} u_i(\ \cdot\ ; b_i).$$
+If an action for $i$ is not an ABR then it is a sometimes not best response (SNBR).
+\\
+If an action for $i$ is not a NBR then it is a sometimes best response (SBR).
+\\
+\\
+Actions $a_i^*,a_i \in A_i$ are payoff equivalent for $i$ iff $\forall a'_{-i} \in A_{-i},  u_i(a^*_i;a'_{-i})=u_i(a_i;a'_{-i})$.  
+\\
+Action $a^*_i \in A_i$ weakly dominates action $a_i \in A_i$ iff $a^*_i$ and $a_i$ are not payoff equivalent for $i$ and  $\forall a'_{-i} \in A_{-i}, u_i(a^*_i;a'_{-i})\geq u_i(a_i;a'_{-i})$.  
+\\
+Action $a^*_i\in A_i$ strictly dominates action $a_i \in A_i$ iff $\forall a'_{-i} \in A_{-i}, u_i(a^*_i;a'_{-i})>u_i(a_i;a'_{-i}).$
+\\
+An action $a^*_i \in A_i$ is weakly dominant for $i$ iff $\forall a_i \in A_i \backslash\{a^*_i\}$, $a^*_i$ weakly dominates $a_i$.
+\\
+An action $a^*_i \in A_i$ is strictly dominant for $i$ iff $\forall a_i \in A_i \backslash \{a^*_i\}$, $a^*_i$ strictly dominates $a_i$.
+\\
+\\
+A (mixed) strategy for $i$ is a probability distribution $s_i \in \Delta(A_i)$. Given $s_i \in \Delta(A_i)$ and $a'_{-i} \in A_{-i}$, we write $u_i(s_i;a'_{-i})$ as shorthand to mean:
+$$u_i(s_i;a'_{-i})=\sum_{a_i \in A_i} u_i(a_i;a'_{-i}) \cdot s_i(a_i).$$
+An action $a_i \in A_i$ is just the (pure) strategy $s_i \in \Delta(A_i)$ which sets $s_i(a_i)=1$.
+\\
+\\
+Strategies $s_i^*,s_i \in \Delta(A_i)$ are payoff equivalent for $i$ iff $\forall a'_{-i} \in A_{-i},  u_i(s^*_i;a'_{-i})=u_i(s_i;a'_{-i})$.  
+\\
+Strategy $s^*_i \in \Delta(A_i)$ weakly dominates strategy $s_i \in \Delta(A_i)$ iff $s^*_i$ and $s_i$ are not payoff equivalent for $i$ and  $\forall a'_{-i} \in A_{-i}, u_i(s^*_i;a'_{-i})\geq u_i(s_i;a'_{-i})$.  
+\\
+Strategy $s^*_i\in \Delta(A_i)$ strictly dominates strategy $s_i \in \Delta(A_i)$ iff $\forall a'_{-i} \in A_{-i}, u_i(s^*_i;a'_{-i})>u_i(s_i;a'_{-i}).$
+\\
+A strategy $s^*_i \in \Delta(A_i)$ is weakly dominant for $i$ iff $\forall s_i \in \Delta(A_i) \backslash\{s^*_i\}$, $s^*_i$ weakly dominates $s_i$.
+\\
+A strategy $s^*_i \in \Delta(A_i)$ is strictly dominant for $i$ iff $\forall s_i \in \Delta(A_i)\backslash\{s^*_i\}$, $s^*_i$ strictly dominates $s_i$.
+\\
+\\
+Given a game $G=((A_i)_{i \in [N]},(u_i)_{i \in [N]})$ let $\text{NBR}_i(G)$ be the set of NBR's for $i$. One can then consider the game $G'= ((A'_i)_{i \in [N]},(u'_i)_{i \in [N]})$ where $A'_i=A_i\backslash\text{NBR}_i(G)$, $A'=\prod_{i \in [N]} A'_i$, and $u'_i: A' \to \mathbb{R}$ is defined so that $\forall a \in A'$:
+$$u'_i(a)=u_i(a).$$
+The process of constructing the sequence of games $G,G',(G')',((G')')'...$ is called iterated elimination of NBR's (IENBR). 
+\\
+\\
+Since each $A_i$ is finite in $G$, we know this sequence eventually converges. Further, none of the players' action sets will be empty in this final game as this would require all their available actions at some stage of IENBR to be NBR's (why is is this impossible?). Denote this final game by:
+$$G^{\infty}=((A^{\infty}_i)_{i \in [N]},(u^{\infty}_i)_{i \in [N]})).$$
+An action $a_i \in A^{\infty}_i$ is called rationalizable for $i$. At a very high/philosophical level, the actions $a_i \in A_i$ which are rationalizable for $i$ are those which can be supported by an infinite chain of reasoning, e.g. ``I might do $a_i$ because you might do $a_j$ because I might do $a'_i$ because you might do $a'_j$ because I might do $a''_i$ because you might do...'' This infinite chains of reasoning idea can be made more precise but we will not formalize it here.
+
+
+\section{Examples}
+
+\subsection*{Backup/Delete}
+
+$N = 2$, $A_1 = \{\text{Backup}, \text{No Backup}\}$, $A_2 = \{\text{Delete}, \text{Don't Delete}\}$.
+
+\begin{center}
+\begin{tabular}{r|c|c|}
+  & Delete & Don't Delete \\\hline
+Backup & $10, 0$ & $10, 0$ \\\hline
+No Backup & $0, 10$ & $10, 0$ \\\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Prisoner's Dilemma}
+
+$N =  2$, $A_1 = A_2 = \{\text{Cooperate}, \text{Defect}\}$.
+
+\begin{center}
+\begin{tabular}{r|c|c|}
+  & Cooperate & Defect \\\hline
+Cooperate & $-1, -1$ & $-3, 0$ \\\hline
+Defect & $0, -3$ & $-2, -2$ \\\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Matching Pennies}
+
+$N = 2$, $A_1 = A_2 = \{\text{Heads}, \text{Tails}\}$.
+
+\begin{center}
+\begin{tabular}{r|c|c|}
+  & Heads & Tails \\\hline
+Heads & $1, -1$ & $-1, 1$ \\\hline
+Tails & $-1, 1$ & $1, -1$ \\\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Rock Paper Scissors}
+
+$N = 2$, $A_1 = A_2 = \{\text{Rock}, \text{Paper}, \text{Scissors}\}$.
+
+\begin{center}
+\begin{tabular}{r|c|c|c|}
+  & Rock & Paper & Scissors \\\hline
+Rock & $0, 0$ & $-1, 1$ & $1, -1$ \\\hline
+Paper & $1, -1$ & $0, 0$ & $-1, 1$ \\\hline
+Scissors & $-1, 1$ & $1, -1$ & $0, 0$ \\\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Purely Numerical Example}
+
+$N = 2$, $A_1 =\{\text{T}, \text{M}, \text{B}\}$, $A_2 =\{\text{L}, \text{R}\}$.
+
+\begin{center}
+\begin{tabular}{r|c|c|}
+  & L & R  \\\hline
+T & $2, 0$ & $0, 1$ \\\hline
+M & $0, 0$ & $2, 1$ \\\hline
+B & $1, 1$ & $1, 0$ \\\hline
+\end{tabular}
+\end{center}
+
+
+\subsection*{Guess $\frac{1}{3}$ the Average}
+
+$N >1$ and $\forall i \in [N],$ $A_i = \{1, 2, \ldots, 100\}$. Next, $\forall i \in [N]$ we have $\forall a \in A$ that:
+$$u_i(a) = -\left|a_i - \frac{1}{3}\sum_{j \in [N] \backslash \{i\}} \frac{a_j}{N-1} \right|.$$
+
+
+\section{Theorems}
+\textbf{Theorem 9:} An action $a^*_i \in A_i$ is an ABR for $i$ iff $\forall a_i \in A_i$ we have that either $a^*_i$ and $a_i$ are payoff equivalent or $a^*_i$ weakly dominates $a_i$.
+\\
+\\
+\underline{Proof}
+\\
+First suppose $a_i^* \in A_i$ is an ABR. Then $\forall b_i \in \Delta(A_{-i})$ we know $a_i^* \in \argmax_{a_i \in A_i} u_i( \ \cdot \ ; b_i)$. Take arbitrary $a'_{-i} \in A_{-i}$ and consider the beliefs $b'_i\in \Delta(A_{-i})$ which set $b'_i(a'_{-i})=1$. Note: 
+$$a_i^* \in \argmax_{a_i \in A_i} u_i( \ \cdot \ ; b'_i)=\argmax_{a_i \in A_i} \sum_{a_{-i} \in A_{-i}}u_i( \ \cdot \ ;a_{-i}) \cdot b'_i(a_{-i})=\argmax_{a_i \in A_{i}} u_i( \ \cdot \ ;a'_{-i}).$$
+In other words, $\forall a_i \in A_i$ we have $u_i(a^*_i;a'_{-i}) \geq u_i(a_i;a'_{-i})$. Since $a'_{-i}$ was arbitrary, this means $\forall a_i \in A_i$ that either $a^*_i$ and $a_i$ are payoff equivalent or $a^*_i$ weakly dominates $a_i$.
+\\
+\\
+Now suppose $\forall a_i\in A_i$ that either $a^*_i$ and $a_i$ are payoff equivalent or $a^*_i$ weakly dominates $a_i$. This means $\forall a'_{-i} \in A_{-i}$ that $u_i(a^*_i;a'_{-i}) \geq u_i(a_i, a'_{-i})$. Take arbitrary $b_i \in \Delta(A_{-i})$. Note that:
+$$\sum_{a'_{-i} \in A_{-i}} \left(u_i(a^*_i;a'_{-i})-u_i(a_i; a'_{-i})\right)\cdot b_i(a'_{-i}) \geq 0.$$
+Rearranging we can obtain $u_i(a^*_i;b_i)\geq u_i(a_i;b_i).$
+Since $a_i$ and $b_i$ were arbitrary this means that $a^*_i \in \argmax_{a_i \in A_i} u_i(\ \cdot \ ; b_i)$ and so $a^*_i$ is an ABR. $\square$
+\\
+\\
+\textbf{Theorem 10:} An action $a^*_i \in A_i$ is a NBR for $i$ iff $\exists s_i \in \Delta(A_i \backslash\{a^*_i\})$ such that the strategy $s_i$ strictly dominates the action $a^*_i$ (taken as a pure strategy).
+
+
+\end{document}

@@ -1,0 +1,145 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amsthm, amssymb}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{array}
+\usepackage{forest}
+\usepackage[margin=1in]{geometry}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\title{}
+\date{}
+
+\begin{document}
+
+\section{Converting Market Entry to Normal Form}
+Recall the market entry game from lecture whose extensive form is pictured below:
+
+\begin{center}
+\begin{forest}
+[$\varepsilon$
+    [{(Spend, Enter)}
+        [{(Fight,*)}
+            [{$(1,-1)$}]
+        ]
+        [{(Concede,*)}
+            [{$(-1,1)$}]
+        ]
+    ]
+    [({Spend, Exit)}
+        [{$(1,0)$}]
+    ]
+    [{(Save, Enter)}
+        [{(Fight,*)}
+            [{$(-1,1)$}]
+        ]
+        [{(Concede,*)}
+            [{$(0,1)$}]
+        ]
+    ]
+    [{(Save, Exit)}
+        [{$(2,0)$}]
+    ]
+]
+\end{forest}
+\end{center}
+
+\noindent Represent the game in its normal form. Are there any pure Nash equilibria? Be sure to justify your answer...
+
+\section{Centipede}
+Pictured below is the extensive form representation of a five-stage `centipede' game: 
+\begin{center}
+\begin{forest}
+[$\varepsilon$
+    [{(Take,*)}
+        [{$(2,0)$}]
+    ]
+    [{(Pass,*)}
+        [{(*,Take)}
+            [{$(1,3)$}]
+        ]
+        [{(*,Pass)}
+            [{(Take,*)}
+                [{$(4,2)$}]
+            ]
+            [{(Pass,*)}
+                [{(*,Take)}
+                    [{$(3,5)$}]
+                ]
+                [{(*,Pass)}
+                    [{(Take,*)}
+                        [{$(6,4)$}]
+                    ]
+                    [{(Pass,*)}
+                        [{$(5,7)$}]
+                    ]
+                ]
+            ]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\noindent Solve for all pure subgame perfect equilibria (SPE) using backward induction. Show your work.
+\newpage
+\section{Solving for Mixed SPE} 
+Consider the following extensive form game:
+
+\begin{center}
+\begin{forest}
+[$\varepsilon$
+    [{(L,*)}
+        [{(U, $\ell$)} [{$(4,-4)$}]]
+        [{(U, $r$)} [{$(0,0)$}]]
+        [{(D, $\ell$)} [{$(0,0)$}]]
+        [{(D, $r$)} [{$(2,-2)$}]]
+    ]
+    [{(R,*)}
+        [{(U, $\ell$)} [{$(1,-1)$}]]
+        [{(U, $r$)} [{$(0,0)$}]]
+        [{(D, $\ell$)} [{$(0,0)$}]]
+        [{(D, $r$)} [{$(1,-1)$}]]
+    ]
+]
+\end{forest}
+\end{center}
+
+\noindent Solve for all SPE (both pure and mixed) using backwards induction. Show your work.
+
+
+
+
+
+\section{A Riddle}
+Imagine that 100 bags of gold coins are laid out in a row on a table. The $n$th bag in the row if $n\in \{1,2,...,50\}$ contains $2n-1$ gold coins while if $n \in \{51,52,...,100\}$ contains $202-2n$ gold coins. As a sequence the number of gold coins in each bag (starting from bag $1$ and going till bag $100$) looks like this:
+$$1,3,5,...,95,97,99,100,98,96,...,6,4,2.$$
+The bags are labelled with the number of gold coins they contain. Consider a game where players 1 and 2 take turns removing exactly one bag from either end of the row (they get to choose which end they remove the bag from). Once each bag has been allocated to a player (i.e. every bag has been removed from the table), player 1 and player 2 compute the total number of gold coins they each have. 
+\\
+\\If player 1 has at least as many gold coins as  player 2 then player 1 wins the game and player 2 loses. If player 1 has strictly fewer gold coins than player 2 then player 1 loses the game and player 2 wins. Note the game CANNOT end in a draw.
+\\
+\\
+Is this game determined? If so, which player has a winning strategy and what should this player do to ensure they win? Justify your answers.
+
+
+
+\section{SPE Existence Summary}
+Please summarize the SPE existence proof in the most up to date notes (Theorem 13 in the file Lec8910.pdf). Your summary should clearly explain \#1) How the base case is set up for the induction, \#2) Where the inductive hypothesis is used, \#3) How the candidate SPE is constructed, \#4) Where and why Nash's existence result is used (it is used multiple times), \#5) Where and why the one shot deviation principle is used, and \#6) The ultimate source of the final contradiction.
+\newpage
+\section{Another Riddle (BONUS)}
+Imagine the digits $1,2,3,4,5,6,7,8,9$ are placed on a table. Consider a game where players 1 and 2 take turns removing exactly one digit from the table. Crucially, players are allowed to remove ANY digit of their choice still on the table. Once each digit has been allocated to a player (i.e. every digit has been removed from the table), player 2 checks to see if the sum of any $3$ of player 1's digits is equal to $15$. 
+\\
+\\
+If player 1 has $3$ digits which sum to 15 then player 1 wins the game and player 2 loses. If player 1 does not have $3$ digits which sum to 15 then player 2 wins the game and player 1 loses. Note the game CANNOT end in a draw.
+\\
+\\
+Is this game determined? If so, which player has a winning strategy and what should this player do to ensure they win? Justify your answers.
+
+
+\end{document}
